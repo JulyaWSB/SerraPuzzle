@@ -6,13 +6,9 @@ import {
   ImageBackground,
 } from "react-native";
 import styles from "./styles";
-import { useState } from "react";
 import { Input } from "../../components/input";
 
-export function Login() {
-  const [email, setEmail] = useState("");
-  const [senha, setSenha] = useState("");
-
+export function Cadastro() {
   return (
     <ImageBackground
       source={require("../../assets/loginBg.png")}
@@ -20,9 +16,11 @@ export function Login() {
       resizeMode="cover"
     >
       <View style={styles.container}>
-        <Text style={styles.title}>Log In</Text>
+        <Text style={styles.title}>Cadastro</Text>
+        <Input label="Nome" />
         <Input label="E-mail" />
         <Input label="Senha" />
+        <Input label="Confirmar Senha" />
         <TouchableOpacity>
           <Image
             source={require("../../assets/botao.png")}
@@ -30,10 +28,10 @@ export function Login() {
           />
         </TouchableOpacity>
       </View>
-      <View style={styles.temCadastro}>
-        <Text style={styles.textoCadastro}>Não possuí cadastro? </Text>
+      <View style={styles.temLogin}>
+        <Text style={styles.textoLogin}>Já possuí cadastro? </Text>
         <TouchableOpacity>
-          <Text style={styles.textoCadastro}> Cadastre-se aqui!</Text>
+          <Text style={styles.textoLogin}> Entre aqui!</Text>
         </TouchableOpacity>
       </View>
     </ImageBackground>
