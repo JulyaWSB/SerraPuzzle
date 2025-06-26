@@ -30,6 +30,18 @@ const styles = StyleSheet.create({
     borderColor: "#ccc",
   },
   optionText: { fontSize: 18 },
+
+  status: {
+    flexDirection: "row",
+    alignContent: "space-between",
+    marginBottom: 16,
+    textAlign: "center",
+  },
+
+  statusText: {
+    fontSize: 18,
+    color: "#000",
+  },
 });
 
 export default styles;

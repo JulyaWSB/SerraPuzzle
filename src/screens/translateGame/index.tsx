@@ -74,6 +74,8 @@ export function TranslateGame() {
   const [correctLang, setCorrectLang] = useState(""); //a lingugem da palavra traduzida
   const [options, setOptions] = useState<string[]>([]); //armazena as 4 lingugens (erradas e a certa (usei para a contrução do botão))
   const [loading, setLoading] = useState(false); //o carregamento quaando abre ou muda o jogo
+  const [lives, setLives] = useState(3); //guarda a quantidade de vidas
+  const [score, setScore] = useState(0); //guarda o "avanço"/acertos
 
   //função que gera um novo desafio
   const generateChallenge = async () => {
@@ -108,15 +110,63 @@ export function TranslateGame() {
 
   //quando clica em uma das opções vem para cá
   const handleAnswer = (selected: string) => {
-    //verifica se vc acertou
     const isCorrect = selected === correctLang;
 
-    //mostra o resultado e a palavra correta
-    Alert.alert(
-      isCorrect ? "Acertou!" : "Errou!",
-      `A tradução de "${original}" foi para o idioma: ${languageMap[correctLang]}.`,
-      [{ text: "Próxima", onPress: generateChallenge }]
-    );
+    if (isCorrect) {
+      const newScore = score + 1; //se estiver certo vc avança mais 1 na estrela
+      setScore(newScore);
+
+      //se chegar em 5 o jogador vence -- temporario (adicionar código e retorno para home)
+      if (newScore === 5) {
+        Alert.alert("Parabéns!", "Você acertou 5 vezes e venceu o jogo!", [
+          {
+            //reinicia o jogo e zera os valores de vida e pontos
+            text: "Jogar novamente",
+            onPress: () => {
+              setScore(0);
+              setLives(3);
+              generateChallenge();
+            },
+          },
+        ]);
+        return;
+      }
+
+      //se ainda nn venceu mas acertou cai aqui
+      Alert.alert("Acertou!", `Muito bem!`, [
+        { text: "Próxima", onPress: generateChallenge },
+      ]);
+    } else {
+      const newLives = lives - 1; //porem se errar cai aqui e é -1 vida
+      setLives(newLives);
+
+      //se acabou as vidas o jogador perde
+      if (newLives === 0) {
+        Alert.alert(
+          "Game Over",
+          `Você errou 3 vezes!\nA tradução correta de "${original}" era em ${languageMap[correctLang]}.`,
+          [
+            {
+              //reinicia o jogo e zera os valores de vida e pontos
+              text: "Tentar novamente",
+              onPress: () => {
+                setScore(0);
+                setLives(3);
+                generateChallenge();
+              },
+            },
+          ]
+        );
+        return;
+      }
+
+      //se ainda tem vidas mostra alerta de erro e continua para o próximo desafio
+      Alert.alert(
+        "Errou!",
+        `A tradução de "${original}" foi para o idioma: ${languageMap[correctLang]}.`,
+        [{ text: "Continuar", onPress: generateChallenge }]
+      );
+    }
   };
 
   //useEffect para gerar o primeiro desafio quando o componente monta
@@ -127,6 +177,10 @@ export function TranslateGame() {
   //tela
   return (
     <View style={styles.container}>
+      <View style={styles.status}>
+        <Text style={styles.statusText}>❤️ Vidas: {lives}</Text>
+        <Text style={styles.statusText}>⭐ Pontos: {score}/5</Text>
+      </View>
       <Text style={styles.title}>Qual é o idioma da tradução?</Text>
 
       {loading ? (
