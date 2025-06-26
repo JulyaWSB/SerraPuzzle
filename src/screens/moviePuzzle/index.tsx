@@ -113,5 +113,20 @@ export  function MoviePuzzle() {
     );
   }
 
+  return (
+    <View style={styles.container}>
+      <Text style={styles.title}>{movie.title}</Text>
+      <Text style={styles.synopsis}>{movie.overview}</Text>
+      <Text style={styles.question}>Qual é o gênero desse filme?</Text>
 
+      {getOpcoesDeGenero().map((genero) => (
+  <View key={genero.id} style={styles.buttonWrapper}>
+    <Button title={genero.name} onPress={() => verificarGenero(genero.id)} />
+  </View>
+))}
+
+      <Text style={styles.status}>Vidas: {vidas}</Text>
+      <Text style={styles.status}>Acertos: {acertos}</Text>
+    </View>
+  );
 }
