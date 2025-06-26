@@ -30,49 +30,67 @@ export  function MoviePuzzle() {
   };
 
   const getOpcoesDeGenero = (): Genero[] => {
-  if (!movie || genres.length === 0) return [];
+    if (!movie || genres.length === 0) return [];
 
-  const generosDoFilme = genres.filter((g) => movie.genreIds.includes(g.id));
-  const generosErrados = genres.filter((g) => !movie.genreIds.includes(g.id));
+    const generosDoFilme = genres.filter((g) => movie.genreIds.includes(g.id));
+    const generosErrados = genres.filter((g) => !movie.genreIds.includes(g.id));
 
-  const generosAleatoriosErrados = generosErrados
-    .sort(() => Math.random() - 0.5)
-    .slice(0, 3); // 3 errados
+    const generosAleatoriosErrados = generosErrados
+      .sort(() => Math.random() - 0.5)
+      .slice(0, 3); // 3 errados
 
-  const generoCorreto = generosDoFilme[0]; // pegar o primeiro gênero do filme
+    const generoCorreto = generosDoFilme[0]; // pegar o primeiro gênero do filme
 
-  const opcoes = [...generosAleatoriosErrados, generoCorreto]
-    .sort(() => Math.random() - 0.5); // embaralhar as opções
+    const opcoes = [...generosAleatoriosErrados, generoCorreto]
+      .sort(() => Math.random() - 0.5); // embaralhar as opções
 
-  return opcoes;
-};
+    return opcoes;
+  };
 
   const sortearFilme = async () => {
-  try {
-    setLoading(true);
+    try {
+      setLoading(true);
 
-    let filmeAleatorio: any = null;
+      let filmeAleatorio: any = null;
 
-    // tenta até encontrar um filme válido
-    while (
-      !filmeAleatorio ||
-      !filmeAleatorio.genre_ids ||
-      filmeAleatorio.genre_ids.length === 0 ||
-      !filmeAleatorio.overview || 
-      filmeAleatorio.overview.trim() === ''
-    ) {
-      const paginaAleatoria = Math.floor(Math.random() * 10) + 1;
-      const filmes = await getPopularMovies(paginaAleatoria);
-      filmeAleatorio = filmes[Math.floor(Math.random() * filmes.length)];
+      // tenta até encontrar um filme válido
+      while (
+        !filmeAleatorio ||
+        !filmeAleatorio.genre_ids ||
+        filmeAleatorio.genre_ids.length === 0 ||
+        !filmeAleatorio.overview || 
+        filmeAleatorio.overview.trim() === ''
+      ) {
+        const paginaAleatoria = Math.floor(Math.random() * 10) + 1;
+        const filmes = await getPopularMovies(paginaAleatoria);
+        filmeAleatorio = filmes[Math.floor(Math.random() * filmes.length)];
+      }
+
+      setMovie(filmeAleatorio);
+    } catch (error) {
+      console.error('Erro ao buscar filme:', error);
+    } finally {
+      setLoading(false);
     }
+    
+  };
 
-    setMovie(filmeAleatorio);
-  } catch (error) {
-    console.error('Erro ao buscar filme:', error);
-  } finally {
-    setLoading(false);
-  }
-};
+  const verificarGenero = (generoEscolhidoId: number) => {
+    if (!movie) return;
+
+    if (movie.genre_ids.includes(generoEscolhidoId)) {
+      const novosAcertos = acertos + 1;
+      setAcertos(novosAcertos);
+      Alert.alert('Acertou!', 'Você acertou o gênero do filme!');
+
+      if (novosAcertos >= 3) {
+        Alert.alert('Parabéns!', 'Você acertou a quantidade nescessaria de filmes! O numero que você buscava era 8.');
+        setAcertos(0);
+        setVidas(3);
+      }
+    }
+  };    
+
 
 
 
