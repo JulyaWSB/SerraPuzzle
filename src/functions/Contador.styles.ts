@@ -6,15 +6,14 @@ export const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         flex: 1,
-
+        flexDirection: 'row'
     },
 
     texto: {
         fontSize: 40,
         fontFamily: 'Daruma',
-        backgroundColor: "pink",
-        width: 200,
-        height: 70,
+        width: 50,
+        height: 100,
         textAlign: 'center'
     }
 })
