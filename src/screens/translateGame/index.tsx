@@ -5,6 +5,8 @@ import {
   TouchableOpacity,
   Alert,
   ActivityIndicator,
+  ImageBackground,
+  Image,
 } from "react-native";
 import styles from "./styles";
 import { translateWord } from "../../service/translateApi/translateGameService";
@@ -76,6 +78,7 @@ export function TranslateGame() {
   const [loading, setLoading] = useState(false); //o carregamento quaando abre ou muda o jogo
   const [lives, setLives] = useState(3); //guarda a quantidade de vidas
   const [score, setScore] = useState(0); //guarda o "avanço"/acertos
+  const [highlightedIndex, setHighlightedIndex] = useState(-1); //para mudar a cor da opções
 
   //função que gera um novo desafio
   const generateChallenge = async () => {
@@ -174,37 +177,70 @@ export function TranslateGame() {
     generateChallenge();
   }, []);
 
+  //useEffect para gerar animação de destaque
+  useEffect(() => {
+    const interval = setInterval(() => {
+      //atualiza o index do botão que vai receber o bg
+      setHighlightedIndex((prevIndex) => {
+        if (options.length === 0) return -1; //proteção para caso naão haja botao paa destacar
+        return (prevIndex + 1) % options.length;
+      });
+    }, 500); //velocidade que muda
+
+    return () => clearInterval(interval);
+  }, [options]); //reinicia quando opções mudam
+
   //tela
   return (
-    <View style={styles.container}>
+    <ImageBackground
+      source={require("../../assets/bandeiras.png")}
+      style={styles.bg}
+      resizeMode="cover"
+    >
       <View style={styles.status}>
         <Text style={styles.statusText}>❤️ Vidas: {lives}</Text>
         <Text style={styles.statusText}>⭐ Pontos: {score}/5</Text>
       </View>
-      <Text style={styles.title}>Qual é o idioma da tradução?</Text>
 
-      {loading ? (
-        //mostra loading
-        <ActivityIndicator size="large" color="#0077cc" />
-      ) : (
-        <>
-          {/* mostra a palavra em pt e a traduzida */}
-          <Text style={styles.challengeText}>
-            {original} → {translated}
-          </Text>
+      <View style={styles.container}>
+        <Text style={styles.title}>Qual é o idioma da tradução?</Text>
 
-          {/* um botão para cada opção de idioma */}
-          {options.map((langCode, index) => (
-            <TouchableOpacity
-              key={index}
-              style={styles.optionButton}
-              onPress={() => handleAnswer(langCode)} // chama handleAnswer com o código do idioma selecionado
-            >
-              <Text style={styles.optionText}>{languageMap[langCode]}</Text>
-            </TouchableOpacity>
-          ))}
-        </>
-      )}
-    </View>
+        {loading ? (
+          //mostra loading
+          <ActivityIndicator size="large" color="#0077cc" />
+        ) : (
+          <>
+            {/* mostra a palavra em pt e a traduzida */}
+
+            <View style={styles.challenge}>
+              <Text style={styles.challengeText}>{original}</Text>
+              <Image
+                source={require("../../assets/setaIcon.png")}
+                style={styles.icon}
+              />
+              <Text style={styles.challengeText}>{translated}</Text>
+            </View>
+
+            {/* um botão para cada opção de idioma */}
+            {options.map((langCode, index) => (
+              <View style={styles.buttons}>
+                <TouchableOpacity
+                  key={index}
+                  style={[
+                    styles.optionButton,
+                    index === highlightedIndex && {
+                      backgroundColor: "#FF0000",
+                    },
+                  ]}
+                  onPress={() => handleAnswer(langCode)} // chama handleAnswer com o código do idioma selecionado
+                >
+                  <Text style={styles.optionText}>{languageMap[langCode]}</Text>
+                </TouchableOpacity>
+              </View>
+            ))}
+          </>
+        )}
+      </View>
+    </ImageBackground>
   );
 }
