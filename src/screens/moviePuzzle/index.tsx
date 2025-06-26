@@ -4,14 +4,14 @@ import { getGenres, getPopularMovies } from '../../services/MovieApi/movieApiInd
 import { styles } from './styles';
 
 
-type Genero = {
+type Genre = {
   id: number;
   name: string;
 };
 
 export  function MoviePuzzle() {
   const [movie, setMovie] = useState<any>(null);
-  const [genres, setGenres] = useState<Genero[]>([]);
+  const [genres, setGenres] = useState<Genre[]>([]);
   const [loading, setLoading] = useState(true);
   const [vidas, setVidas] = useState(3);
   const [acertos, setAcertos] = useState(0);
@@ -30,11 +30,11 @@ export  function MoviePuzzle() {
     }
   };
 
-  const getOpcoesDeGenero = (): Genero[] => {
+  const getOpcoesDeGenero = (): Genre[] => {
     if (!movie || genres.length === 0) return [];
 
-    const generosDoFilme = genres.filter((g) => movie.genreIds.includes(g.id));
-    const generosErrados = genres.filter((g) => !movie.genreIds.includes(g.id));
+    const generosDoFilme = genres.filter((g) => movie.genre_ids.includes(g.id));
+    const generosErrados = genres.filter((g) => !movie.genre_ids.includes(g.id));
 
     const generosAleatoriosErrados = generosErrados
       .sort(() => Math.random() - 0.5)
