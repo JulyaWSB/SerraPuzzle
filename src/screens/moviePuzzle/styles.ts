@@ -1,6 +1,6 @@
-import { StyleSheet } from "react-native";
+import { Button, StyleSheet } from "react-native";
 
-export const styles = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     padding: 20,
     flex: 1,
@@ -10,25 +10,38 @@ export const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+    
   },
   title: {
     fontSize: 22,
     fontWeight: 'bold',
     marginBottom: 10,
-    color: '#222',
+    color: '#000',
+    padding: 10,
+    textAlign: 'center',
   },
-  synopsis: {
+  descricao: {
     fontSize: 16,
     marginBottom: 10,
-    color: '#444',
+    color: '#fff',
+    backgroundColor: '#000',
   },
   question: {
     fontSize: 16,
     marginVertical: 10,
     fontWeight: '500',
   },
-  buttonWrapper: {
+  button: {
+    backgroundColor: '#000',
+    padding: 10,
     marginVertical: 5,
+
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: 16,
+    textAlign: 'center',
+   
   },
   status: {
     marginTop: 15,
@@ -36,3 +49,5 @@ export const styles = StyleSheet.create({
     fontSize: 16,
   },
 });
+
+export default styles;

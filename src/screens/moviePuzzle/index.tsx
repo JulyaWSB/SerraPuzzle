@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Button, ActivityIndicator, Alert } from 'react-native';
+import { View, Text, Button, ActivityIndicator, Alert, TouchableOpacity } from 'react-native';
 import { getGenres, getPopularMovies } from '../../services/MovieApi/movieApiIndex';
-import { styles } from './styles';
+import styles  from './styles';
 
 
 type Genre = {
@@ -116,17 +116,34 @@ export  function MoviePuzzle() {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>{movie.title}</Text>
-      <Text style={styles.synopsis}>{movie.overview}</Text>
+      <Text style={styles.descricao}>{movie.overview}</Text>
       <Text style={styles.question}>Qual é o gênero desse filme?</Text>
-
       {getOpcoesDeGenero().map((genero) => (
-  <View key={genero.id} style={styles.buttonWrapper}>
-    <Button title={genero.name} onPress={() => verificarGenero(genero.id)} />
-  </View>
+      <TouchableOpacity
+        key={genero.id}
+        style={styles.button}
+        onPress={() => verificarGenero(genero.id)}
+      >
+        <Text style={styles.buttonText}>{genero.name}</Text>
+      </TouchableOpacity>
 ))}
 
       <Text style={styles.status}>Vidas: {vidas}</Text>
       <Text style={styles.status}>Acertos: {acertos}</Text>
     </View>
-  );
+  
+
+);
+
+
+
+
+
+
+<View style={{ backgroundColor: 'red', flex: 1 }}>
+  <Text style={{ color: 'white' }}>Teste</Text>
+</View>
+
+
+
 }
