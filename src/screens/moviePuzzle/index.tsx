@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { View, Text, Button, ActivityIndicator, Alert } from 'react-native';
 import { getGenres, getPopularMovies } from '../../services/MovieApi/movieApiIndex';
+import { styles } from './styles';
 
 
 type Genero = {
@@ -88,11 +89,29 @@ export  function MoviePuzzle() {
         setAcertos(0);
         setVidas(3);
       }
+
+      sortearFilme();
+    } else {
+      const novasVidas = vidas - 1;
+      setVidas(novasVidas);
+
+      if (novasVidas <= 0) {
+        Alert.alert('Fim de jogo', 'Você perdeu todas as vidas!');
+        setAcertos(0);
+        setVidas(3);
+      } else {
+        Alert.alert('Errou!', `Você errou! Vidas restantes: ${novasVidas}`);
+      }
     }
-  };    
+  };
 
-
-
+  if (loading || !movie) {
+    return (
+      <View style={styles.loadingContainer}>
+        <ActivityIndicator size="large" color="#000" />
+      </View>
+    );
+  }
 
 
 }
