@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Button, ActivityIndicator, Alert, TouchableOpacity } from 'react-native';
+import { View, Text, ImageBackground, ActivityIndicator, Alert, TouchableOpacity } from 'react-native';
 import { getGenres, getPopularMovies } from '../../services/MovieApi/movieApiIndex';
 import styles  from './styles';
 
@@ -114,36 +114,31 @@ export  function MoviePuzzle() {
   }
 
   return (
-    <View style={styles.container}>
+
+ <ImageBackground
+    source={require('../../assets/cinema.png')} // certifique-se do nome e extensão
+    style={styles.background}
+    resizeMode="cover"
+  >
+    <View style={styles.overlay}>
       <Text style={styles.title}>{movie.title}</Text>
       <Text style={styles.descricao}>{movie.overview}</Text>
       <Text style={styles.question}>Qual é o gênero desse filme?</Text>
+
       {getOpcoesDeGenero().map((genero) => (
-      <TouchableOpacity
-        key={genero.id}
-        style={styles.button}
-        onPress={() => verificarGenero(genero.id)}
-      >
-        <Text style={styles.buttonText}>{genero.name}</Text>
-      </TouchableOpacity>
-))}
+        <TouchableOpacity
+          key={genero.id}
+          style={styles.button}
+          onPress={() => verificarGenero(genero.id)}
+        >
+          <Text style={styles.buttonText}>{genero.name}</Text>
+        </TouchableOpacity>
+      ))}
 
       <Text style={styles.status}>Vidas: {vidas}</Text>
       <Text style={styles.status}>Acertos: {acertos}</Text>
     </View>
-  
-
+  </ImageBackground>
 );
-
-
-
-
-
-
-<View style={{ backgroundColor: 'red', flex: 1 }}>
-  <Text style={{ color: 'white' }}>Teste</Text>
-</View>
-
-
 
 }

@@ -1,11 +1,17 @@
 import { Button, StyleSheet } from "react-native";
 
 const styles = StyleSheet.create({
-  container: {
-    padding: 20,
+  background: {
     flex: 1,
-    backgroundColor: '#fff',
+    width: '100%',
+    height: '100%',
   },
+  overlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.5)', // Fundo semi-transparente para melhor contraste
+    padding: 20,
+  },
+
   loadingContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -13,40 +19,64 @@ const styles = StyleSheet.create({
     
   },
   title: {
-    fontSize: 22,
-    fontWeight: 'bold',
-    marginBottom: 10,
-    color: '#000',
-    padding: 10,
+   padding: 10,
+    fontFamily: 'monospace', 
+    fontSize: 18,
+    color: '#ffcc00',
     textAlign: 'center',
+    marginBottom: 20,
   },
   descricao: {
+   fontFamily: 'monospace',
     fontSize: 16,
-    marginBottom: 10,
     color: '#fff',
-    backgroundColor: '#000',
+    textAlign: 'center',
+    marginBottom: 20,
   },
   question: {
+     fontFamily: 'monospace',
     fontSize: 16,
-    marginVertical: 10,
-    fontWeight: '500',
+    color: '#ffcc00',
+    marginBottom: 12,
+    textAlign: 'center',
   },
   button: {
-    backgroundColor: '#000',
-    padding: 10,
-    marginVertical: 5,
+     backgroundColor: '#ffcc00',
+    borderColor: '#000',
+    borderWidth: 2,
+    paddingVertical: 10,
+    paddingHorizontal: 16,
+    marginVertical: 6,
+    borderRadius: 0,
+    shadowColor: '#000',
+    shadowOffset: { width: 2, height: 2 },
+    shadowOpacity: 1,
+    shadowRadius: 0,
 
   },
   buttonText: {
-    color: '#fff',
+    fontFamily: 'bold',
     fontSize: 16,
+    color: '#000',
     textAlign: 'center',
    
   },
   status: {
-    marginTop: 15,
-    fontWeight: 'bold',
-    fontSize: 16,
+  marginTop: 15,
+  paddingVertical: 8,
+  paddingHorizontal: 12,
+  fontWeight: 'bold',
+  fontSize: 14,
+  fontFamily: 'monospace', 
+  color: '#000',
+  backgroundColor: '#ff0000', 
+  borderColor: '#000',
+  borderWidth: 2,
+  textAlign: 'center',
+  shadowColor: '#000',
+  shadowOffset: { width: 2, height: 2 },
+  shadowOpacity: 1,
+  shadowRadius: 0,
   },
 });
 
