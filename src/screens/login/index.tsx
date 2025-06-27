@@ -9,7 +9,7 @@ import styles from "./styles";
 import { useState } from "react";
 import { Input } from "../../components/input";
 
-export function Login() {
+export function Login({ onLogin }: { onLogin?: () => void }) {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
 
@@ -23,7 +23,7 @@ export function Login() {
         <Text style={styles.title}>Log In</Text>
         <Input label="E-mail" />
         <Input label="Senha" />
-        <TouchableOpacity>
+        <TouchableOpacity onPress={onLogin}>
           <Image
             source={require("../../assets/botao.png")}
             style={styles.startButton}
