@@ -16,14 +16,14 @@ import { languages } from "../../utils/languages";
 const palavras = [
   "gato",
   "cachorro",
-  "amor",
-  "sol",
-  "livro",
-  "carro",
-  "comida",
-  "noite",
-  "floresta",
-  "coração",
+  "coelho",
+  "formiga",
+  "elefante",
+  "capivara", //melhor animal <3
+  "girafa",
+  "leão",
+  "gavião",
+  "zebra",
 ];
 
 //deixa o nome bonitinho para o botão
@@ -223,16 +223,15 @@ export function TranslateGame() {
 
             {/* um botão para cada opção de idioma */}
             {options.map((langCode, index) => (
-              <View style={styles.buttons}>
+              <View key={index} style={styles.buttons}>
                 <TouchableOpacity
-                  key={index}
                   style={[
                     styles.optionButton,
                     index === highlightedIndex && {
                       backgroundColor: "#FF0000",
                     },
                   ]}
-                  onPress={() => handleAnswer(langCode)} // chama handleAnswer com o código do idioma selecionado
+                  onPress={() => handleAnswer(langCode)}
                 >
                   <Text style={styles.optionText}>{languageMap[langCode]}</Text>
                 </TouchableOpacity>
