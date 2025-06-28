@@ -29,9 +29,6 @@ export function Login() {
 
       Alert.alert("Sucesso", "Bem-vindo!");
       console.log("Token:", response.data.token);
-      // Aqui você pode usar AsyncStorage para salvar o token, ou navegar:
-      // await AsyncStorage.setItem("token", response.data.token);
-      // navigation.navigate("Home");
     } catch (error: any) {
       if (error.response?.status === 404) {
         Alert.alert("Erro", "Credenciais inválidas.");
