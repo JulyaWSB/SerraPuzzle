@@ -12,5 +12,5 @@ export default function App() {
     return null;
   }
 
-  return <TranslateGame />;
+  return <Login />;
 }
