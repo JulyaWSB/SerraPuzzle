@@ -10,6 +10,7 @@ import styles from "./styles";
 import { useState } from "react";
 import { Input } from "../../components/input";
 import { apiLogin } from "../../service/loginApi/loginConnection";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export function Login() {
   const [email, setEmail] = useState("");
@@ -26,6 +27,9 @@ export function Login() {
         email,
         password: senha,
       });
+
+      await AsyncStorage.setItem("token", response.data.token);
+      await AsyncStorage.setItem("nome", response.data.user.name);
 
       Alert.alert("Sucesso", "Bem-vindo!");
       console.log("Token:", response.data.token);
