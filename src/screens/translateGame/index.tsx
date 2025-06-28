@@ -146,7 +146,7 @@ export function TranslateGame() {
       //se acabou as vidas o jogador perde
       if (newLives === 0) {
         Alert.alert(
-          "Game Over",
+          "Você falhou com o Nikola!",
           `Você errou 3 vezes!\nA tradução correta de "${original}" era em ${languageMap[correctLang]}.`,
           [
             {
@@ -193,7 +193,7 @@ export function TranslateGame() {
   //tela
   return (
     <ImageBackground
-      source={require("../../assets/bandeiras.png")}
+      source={require("../../assets/loginBg.png")}
       style={styles.bg}
       resizeMode="cover"
     >
