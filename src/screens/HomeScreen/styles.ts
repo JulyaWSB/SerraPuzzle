@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 20,
     right: 20,
-    zIndex: 10,
+    zIndex: 20,
     padding: 10,
   },
   // estilo do texto dos três traços (menu)
@@ -66,8 +66,8 @@ const styles = StyleSheet.create({
   tituloImage: {
     width: 350,
     height: 70,
-    marginTop: 10,
-    marginBottom: 10,
+    marginTop: 70,
+    marginBottom: 1,
     alignSelf: 'center',
   },
   // fundo escuro do modal (quando o menu está aberto)

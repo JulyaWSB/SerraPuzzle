@@ -1,8 +1,13 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Image, StatusBar, ImageBackground, Modal, Pressable } from 'react-native';
+import { View, Text, TouchableOpacity, Image, StatusBar, ImageBackground, Modal, Pressable, } from 'react-native';
+import { StackNavigationProp } from '@react-navigation/stack';
 import styles from './styles';
 
-export default function HomeScreen() {
+type HomeScreenProps = {
+  navigation: StackNavigationProp<any, any>;
+};
+
+export default function HomeScreen({ navigation }: HomeScreenProps) {
   const [menuVisible, setMenuVisible] = useState(false);
 
   return (
@@ -26,7 +31,11 @@ export default function HomeScreen() {
 
       <View style={styles.grid}>
         {[...Array(6)].map((_, i) => (
-          <TouchableOpacity key={i} style={styles.card}>
+          <TouchableOpacity
+            key={i}
+            style={styles.card}
+            onPress={i === 0 ? () => navigation.navigate('RunasPuzzleFases') : undefined}
+          >
           </TouchableOpacity>
         ))}
       </View>
