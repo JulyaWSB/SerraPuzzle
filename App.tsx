@@ -1,13 +1,17 @@
 import { useFonts } from "expo-font";
 import { Login } from "./src/screens/login";
 import { Cadastro } from "./src/screens/cadastro";
-import { Cronometro } from "./src/functions/Contador";
+import { Cronometro } from "./src/components/cronometro/Cronometro";
+import { BotaoClick } from "./src/components/botaoDeClicar/BotaoClick";
+import { BombCliker } from "./src/screens/bombClicker/BombCliker";
+import { CronometroProvider } from "./src/context/CronometroContext";
 
 
 export default function App() {
   const [fontsLoaded] = useFonts({
     PressStart2P: require("./src/assets/fonts/PressStart2P-Regular.ttf"),
-    Daruma: require("./src/assets/fonts/DarumadropOne-Regular.ttf"),
+    PressStart: require("./src/assets/fonts/PressStart2P-Regular.ttf"),
+    Tinny: require("./src/assets/fonts/Tiny5-Regular.ttf"),
   });
 
   if (!fontsLoaded) {
@@ -16,6 +20,10 @@ export default function App() {
 
   // return <Login />;
 
-  return <Cronometro segundoInicial={60} />
+  // return <BotaoClick />
   
+  return (
+  <CronometroProvider>
+    <BombCliker />
+  </CronometroProvider> )
 }
