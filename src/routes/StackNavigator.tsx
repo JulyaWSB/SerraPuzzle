@@ -7,10 +7,18 @@ const Stack = createNativeStackNavigator();
 
 function MyStack() {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator
+      screenOptions={{
+        headerShown: false, 
+        animation: 'fade',  
+        gestureEnabled: true
+      }}
+    >
+      <Stack.Screen name="Bomb Click" component={BombCliker} />
       <Stack.Screen name="Cadastro" component={Cadastro} />
       <Stack.Screen name="Login" component={Login} />
-      <Stack.Screen name="Bomb Click" component={BombCliker} />
     </Stack.Navigator>
   );
 }
+
+export default MyStack;

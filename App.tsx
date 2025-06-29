@@ -1,10 +1,8 @@
 import { useFonts } from "expo-font";
-import { Login } from "./src/screens/login";
-import { Cadastro } from "./src/screens/cadastro";
-import { Cronometro } from "./src/components/cronometro/Cronometro";
-import { BotaoClick } from "./src/components/botaoDeClicar/BotaoClick";
-import { BombCliker } from "./src/screens/bombClicker/BombCliker";
-import { CronometroProvider } from "./src/context/CronometroContext";
+import { NavigationContainer } from "@react-navigation/native";
+import React from "react";
+import MyStack from "./src/routes/StackNavigator";
+import { BottomTabRoutes } from "./src/routes/BottonTabNavigator/BottonTabNavigator";
 
 
 export default function App() {
@@ -14,16 +12,10 @@ export default function App() {
     Tinny: require("./src/assets/fonts/Tiny5-Regular.ttf"),
   });
 
-  if (!fontsLoaded) {
-    return null;
-  }
 
-  // return <Login />;
-
-  // return <BotaoClick />
-  
   return (
-  <CronometroProvider>
-    <BombCliker />
-  </CronometroProvider> )
+    <NavigationContainer>
+      <MyStack />
+    </NavigationContainer>
+  );
 }
