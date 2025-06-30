@@ -52,9 +52,9 @@ const styles = StyleSheet.create({
     width: 173,
     height: 173,
     margin: 10,
-    backgroundColor: 'rgba(255, 255, 255, 0.6)', 
+    backgroundColor: 'rgba(255, 255, 255, 0.89)', 
     borderWidth: 5,
-    borderColor: 'rgba(255, 174, 0, 0.92)', 
+    borderColor: 'rgba(255, 136, 0, 0.92)', 
     borderRadius: 10,
   },
   // icones genéricos

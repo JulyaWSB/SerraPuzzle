@@ -1,22 +1,31 @@
 import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Image, StatusBar, ImageBackground, Modal, Pressable, } from 'react-native';
-import { StackNavigationProp } from '@react-navigation/stack';
+import { View, Text, TouchableOpacity, Image, StatusBar, ImageBackground, Modal, Pressable } from 'react-native';
 import styles from './styles';
 
-type HomeScreenProps = {
-  navigation: StackNavigationProp<any, any>;
-};
+const gridCards = [
+  {
+    image: require('../../assets/images/livro (1).png'),
+    onPress: (navigation: any) => navigation.navigate('RunasPuzzleFases'),
+  },
+  {
+    image: require('../../assets/images/camera.png'),
+    onPress: undefined,
+  },
+  {}, {}, {}, {}, // outros cards p add imagem
+];
 
-export default function HomeScreen({ navigation }: HomeScreenProps) {
+export default function HomeScreen({ navigation }: { navigation: any }) {
   const [menuVisible, setMenuVisible] = useState(false);
 
   return (
     <ImageBackground
       source={require('../../assets/images/fundo.jpg')}
       style={styles.container}
-      resizeMode="cover">
+      resizeMode="cover"
+    >
       <StatusBar hidden />
 
+      {/* Navbar etc */}
       <View style={styles.navbar}>
         <TouchableOpacity style={styles.menuButton} onPress={() => setMenuVisible(true)}>
           <Text style={styles.menuText}>≡</Text>
@@ -29,13 +38,20 @@ export default function HomeScreen({ navigation }: HomeScreenProps) {
         resizeMode="contain"
       />
 
+      {/* grid */}
       <View style={styles.grid}>
-        {[...Array(6)].map((_, i) => (
+        {gridCards.map((card, i) => (
           <TouchableOpacity
             key={i}
             style={styles.card}
-            onPress={i === 0 ? () => navigation.navigate('RunasPuzzleFases') : undefined}
+            onPress={card.onPress ? () => card.onPress(navigation) : undefined}
           >
+            {card.image && (
+              <Image
+                source={card.image}
+                style={{ width: 170, height: 160, resizeMode: 'center' }}
+              />
+            )}
           </TouchableOpacity>
         ))}
       </View>
