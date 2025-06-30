@@ -91,7 +91,7 @@ export function useMovieGame() {
     if (novosAcertos >= 3) {
       setAlerta({
         visivel: true,
-        titulo: 'Parabéns!',
+        titulo: '🎇Parabéns! 🎇',
         mensagem: 'Você acertou a quantidade necessária! O número que você busca é 8!',
         acaoPosAlerta: () => {
           setAcertos(0);
@@ -102,7 +102,7 @@ export function useMovieGame() {
     } else {
       setAlerta({
         visivel: true,
-        titulo: '🎉 Acertou!',
+        titulo: '🎉 Acertou! 🎉',
         mensagem: 'Você acertou o gênero do filme!',
         acaoPosAlerta: () => {
           sortearFilme();
@@ -117,7 +117,7 @@ export function useMovieGame() {
     if (novasVidas <= 0) {
       setAlerta({
         visivel: true,
-        titulo: 'Que pena!',
+        titulo: '😢 Que pena! 😢',
         mensagem: 'Você perdeu todas as suas vidas!',
         acaoPosAlerta: () => {
           setAcertos(0);
@@ -128,7 +128,7 @@ export function useMovieGame() {
     } else {
       setAlerta({
         visivel: true,
-        titulo: 'Errou!',
+        titulo: '❌ Errou! ❌',
         mensagem: `Você errou! Vidas restantes: ${novasVidas}`,
         acaoPosAlerta: undefined  // sem ação extra após fechar
       });
