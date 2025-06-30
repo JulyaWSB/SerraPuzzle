@@ -15,8 +15,8 @@ function MyStack() {
         gestureEnabled: true
       }}
     >
-      <Stack.Screen name="Translate Game" component={TranslateGame} />
       <Stack.Screen name="Bomb Click" component={BombCliker} />
+      <Stack.Screen name="Translate Game" component={TranslateGame} />
       <Stack.Screen name="Cadastro" component={Cadastro} />
       <Stack.Screen name="Login" component={Login} />
     </Stack.Navigator>
