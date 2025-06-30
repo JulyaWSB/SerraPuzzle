@@ -21,6 +21,5 @@ export default function App() {
         </ContadorProvider>
       </CronometroProvider>
     </NavigationContainer>
-
   );
 }
