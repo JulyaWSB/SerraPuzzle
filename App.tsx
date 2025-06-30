@@ -1,6 +1,8 @@
 import { useFonts } from "expo-font";
 import { Login } from "./src/screens/login";
 import { Cadastro } from "./src/screens/cadastro";
+import { PuzzleFotos } from "./src/screens/puzzleFotos";
+import { Perfil } from "./src/screens/perfil";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -11,5 +13,7 @@ export default function App() {
     return null;
   }
 
-  return <Login />;
+  //return <Login />;
+  //return <PuzzleFotos />;
+  return <Perfil />;
 }
