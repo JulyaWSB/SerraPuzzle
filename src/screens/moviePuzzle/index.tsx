@@ -3,6 +3,7 @@ import { View, Text, ImageBackground, ActivityIndicator } from 'react-native';
 import { useMovieGame } from '../../hooks/moviePuzzleFunctions/movieFunctions';
 import { GenreOptions } from '../../components/GeneroOptions/GenreOptions';
 import styles from './styles';
+import { AlertaPixelArt } from '../../components/alertMoviePuzzlee/alertaMovie';
 
 export function MoviePuzzle() {
   const {
@@ -10,8 +11,10 @@ export function MoviePuzzle() {
     loading,
     vidas,
     acertos,
+    alerta,
     getOpcoesDeGenero,
-    verificarGenero
+    verificarGenero,
+    setAlerta
   } = useMovieGame();
 
   if (loading || !movie) {
@@ -41,6 +44,14 @@ export function MoviePuzzle() {
         <Text style={styles.status}>Vidas: {vidas}</Text>
         <Text style={styles.status}>Acertos: {acertos}</Text>
       </View>
+      
+      <AlertaPixelArt
+        visivel={alerta.visivel}
+        titulo={alerta.titulo}
+        mensagem={alerta.mensagem}
+        aoFechar={() => setAlerta({ visivel: false, titulo: '', mensagem: '' })}
+         acaoPosAlerta={alerta.acaoPosAlerta}
+      />
     </ImageBackground>
   );
 }
