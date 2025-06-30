@@ -37,6 +37,7 @@ export const GameProvider = ({ children }: GameProviderProps) => {
    * atualiza o progresso do jogador
    * @param newRoom Nova sala
    * @param newItem Novo item coletado
+   * Também envia o progresso para uma API externa
    */
   const updateProgress = async (newRoom: number, newItem: string) => {
     const updatedInventory = [...inventory, newItem];
@@ -47,6 +48,21 @@ export const GameProvider = ({ children }: GameProviderProps) => {
       '@escapeRoomProgress',
       JSON.stringify({ room: newRoom, items: updatedInventory })
     );
+
+    // envia progresso para a API local do Escape Room
+    try {
+      await fetch('http://localhost:3001/progresso', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          sala: newRoom,
+          inventario: updatedInventory,
+          data: new Date().toISOString()
+        })
+      });
+    } catch (error) {
+      console.warn('Falha ao enviar progresso para a API:', error);
+    }
   };
 
   return (
