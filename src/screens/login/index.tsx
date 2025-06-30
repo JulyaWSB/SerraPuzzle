@@ -12,7 +12,7 @@ import { Input } from "../../components/input";
 import { apiLogin } from "../../service/loginApi/loginConnection";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-export function Login() {
+export function Login({ onLogin }: { onLogin?: () => void }) {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
 
@@ -50,14 +50,9 @@ export function Login() {
     >
       <View style={styles.container}>
         <Text style={styles.title}>Log In</Text>
-        <Input label="E-mail" value={email} onChangeText={setEmail} />
-        <Input
-          label="Senha"
-          value={senha}
-          onChangeText={setSenha}
-          secureTextEntry
-        />
-        <TouchableOpacity onPress={handleLogin}>
+        <Input label="E-mail" />
+        <Input label="Senha" />
+        <TouchableOpacity onPress={onLogin}>
           <Image
             source={require("../../assets/botao.png")}
             style={styles.startButton}
