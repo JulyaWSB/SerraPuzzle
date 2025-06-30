@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
   contentBox: {
-    backgroundColor: 'rgba(34, 34, 80, 0.85)', // NOVA cor da caixa
+    backgroundColor: 'rgba(34, 34, 80, 0.85)',
     borderRadius: 24,
     padding: 28,
     margin: 24,
@@ -18,13 +18,13 @@ const styles = StyleSheet.create({
     shadowRadius: 10,
     elevation: 10,
     borderWidth: 2,
-    borderColor: '#4B0082', // Borda roxa
+    borderColor: '#4B0082',
   },
   title: {
     fontSize: 22,
     textAlign: 'center',
     marginBottom: 18,
-    color: '#3fbd63', // NOVA cor do título (amarelo ouro)
+    color: '#3fbd63',
     fontWeight: 'bold',
     textShadowColor: '#222250',
     textShadowOffset: { width: 1, height: 2 },
@@ -38,6 +38,11 @@ const styles = StyleSheet.create({
     borderRadius: 8,
     marginBottom: 16,
     backgroundColor: 'rgba(255, 255, 255, 0.76)',
+  },
+  warning: {
+    color: '#FF4444',
+    fontWeight: 'bold',
+    marginTop: 10,
   },
 });
 

@@ -12,10 +12,13 @@ import Room3 from './src/screens/EscapeRoom/Room3';
 import FinishScreen from './src/screens/EscapeRoom/FinishScreen';
 import Inventory from './src/screens/EscapeRoom/Inventário';
 import HomeScreen from './src/screens/HomeScreen/home'; // ✅ importar Home corretamente
+import { tabBarStyle, tabBarLabelStyle } from './src/screens/EscapeRoom/tabBarStyles';
 
+// criação dos navegadores
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
+// stack de salas do Escape Room
 function RoomStack() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
@@ -27,9 +30,18 @@ function RoomStack() {
   );
 }
 
+// tab bar inferior: Escape Room e Inventário
 function EscapeRoomTabs() {
   return (
-    <Tab.Navigator screenOptions={{ headerShown: false }}>
+    <Tab.Navigator
+      screenOptions={{
+        headerShown: false,
+        tabBarActiveTintColor: '#3fbd63', 
+        tabBarInactiveTintColor: '#FFF',  
+        tabBarStyle,                      
+        tabBarLabelStyle,                 
+      }}
+    >
       <Tab.Screen name="Escape Room" component={RoomStack} />
       <Tab.Screen name="Inventário" component={Inventory} />
     </Tab.Navigator>
@@ -37,10 +49,12 @@ function EscapeRoomTabs() {
 }
 
 export default function App() {
+  // carrega fonte customizada
   const [fontsLoaded] = useFonts({
     PressStart2P: require("./src/assets/fonts/PressStart2P-Regular.ttf"),
   });
 
+  // estado de login
   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   if (!fontsLoaded) return null;
@@ -49,12 +63,14 @@ export default function App() {
     <GameProvider>
       <NavigationContainer>
         <Stack.Navigator screenOptions={{ headerShown: false }}>
+          {/* tela de login */}
           {!isLoggedIn ? (
             <Stack.Screen name="Login">
               {() => <Login onLogin={() => setIsLoggedIn(true)} />}
             </Stack.Screen>
           ) : (
             <>
+              {/* tela inicial e navegação para Escape Room */}
               <Stack.Screen name="Home" component={HomeScreen} />
               <Stack.Screen name="RunasPuzzleFases" component={EscapeRoomTabs} />
             </>
