@@ -91,8 +91,8 @@ export function useMovieGame() {
     if (novosAcertos >= 3) {
       setAlerta({
         visivel: true,
-        titulo: '🎇Parabéns! 🎇',
-        mensagem: 'Você acertou a quantidade necessária! O número que você busca é 8!',
+        titulo: '🎇 Parabéns! 🎇',
+        mensagem: 'Você acertou a quantidade necessária! O número que você busca é [][][][][8][]!',
         acaoPosAlerta: () => {
           setAcertos(0);
           setVidas(3);
