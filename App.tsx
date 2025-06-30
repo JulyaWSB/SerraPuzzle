@@ -79,4 +79,5 @@ export default function App() {
       </NavigationContainer>
     </GameProvider>
   );
+
 }
