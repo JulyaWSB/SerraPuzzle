@@ -19,7 +19,7 @@ const Room1: React.FC<Room1ScreenProps> = ({ navigation }) => {
   const checkAnswer = () => {
     // verifica se a resposta está correta 
     if (answer.toLowerCase().trim() === 'temperatura') {
-      // atualiza progresso: vai para a sala 2 e adiciona a chave ao inventário
+      // atualiza progresso: vai para a sala 2 e add a chave p/ inventário
       updateProgress(2, 'Chave Misteriosa');
       // navega para a próxima sala
       navigation.navigate('Room2');

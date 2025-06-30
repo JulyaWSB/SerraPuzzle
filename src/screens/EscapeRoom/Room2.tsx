@@ -22,7 +22,7 @@ const Room2: React.FC<Room2ScreenProps> = ({ navigation }) => {
       if (hasKey) {
         // se tiver a chave, avança e adiciona item ao inventário
         updateProgress(3, 'Livro Cifrado');
-        Alert.alert('Parabéns!', 'Você escapou da sala!');
+        navigation.navigate('Room3'); // Navega para a Room3
       } else {
         // se não tiver a chave, alerta para voltar à sala 1
         Alert.alert('Você precisa da chave!', 'Volte para a Sala 1 e resolva o enigma.');

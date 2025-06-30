@@ -8,6 +8,8 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { GameProvider } from './src/screens/EscapeRoom/GameContext';
 import Room1 from './src/screens/EscapeRoom/Room1';
 import Room2 from './src/screens/EscapeRoom/Room2';
+import Room3 from './src/screens/EscapeRoom/Room3';
+import FinishScreen from './src/screens/EscapeRoom/FinishScreen';
 import Inventory from './src/screens/EscapeRoom/Inventário';
 import HomeScreen from './src/screens/HomeScreen/home'; // ✅ importar Home corretamente
 
@@ -19,6 +21,8 @@ function RoomStack() {
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="Room1" component={Room1} />
       <Stack.Screen name="Room2" component={Room2} />
+      <Stack.Screen name="Room3" component={Room3} />
+      <Stack.Screen name="Finish" component={FinishScreen} />
     </Stack.Navigator>
   );
 }
