@@ -5,14 +5,13 @@ import MyStack from "./src/routes/StackNavigator";
 import { CronometroProvider } from "./src/context/CronometroContext";
 import { ContadorProvider } from "./src/context/ContadorContext";
 
-
 export default function App() {
+  // carrega fonte customizada
   const [fontsLoaded] = useFonts({
     PressStart2P: require("./src/assets/fonts/PressStart2P-Regular.ttf"),
     PressStart: require("./src/assets/fonts/PressStart2P-Regular.ttf"),
     Tinny: require("./src/assets/fonts/Tiny5-Regular.ttf"),
   });
-
 
   return (
     <NavigationContainer>
@@ -22,5 +21,6 @@ export default function App() {
         </ContadorProvider>
       </CronometroProvider>
     </NavigationContainer>
+
   );
 }
