@@ -4,6 +4,7 @@ const styles = StyleSheet.create({
   input: {
     width: 300,
     backgroundColor: "#222",
+    color: "#fff",
     padding: 10,
     marginBottom: 16,
     borderWidth: 4,

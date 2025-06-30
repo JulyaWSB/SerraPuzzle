@@ -2,7 +2,6 @@ import { useFonts } from "expo-font";
 import { NavigationContainer } from "@react-navigation/native";
 import React from "react";
 import MyStack from "./src/routes/StackNavigator";
-import { BottomTabRoutes } from "./src/routes/BottonTabNavigator/BottonTabNavigator";
 import { CronometroProvider } from "./src/context/CronometroContext";
 import { ContadorProvider } from "./src/context/ContadorContext";
 
