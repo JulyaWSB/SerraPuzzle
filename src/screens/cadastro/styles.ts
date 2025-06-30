@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontWeight: 600,
     fontSize: 15,
-    marginBottom: 20,
+    marginBottom: 35,
   },
 });
 export default styles;

@@ -32,7 +32,6 @@ export function Login() {
       await AsyncStorage.setItem("nome", response.data.user.name);
 
       Alert.alert("Sucesso", "Bem-vindo!");
-      console.log("Token:", response.data.token);
     } catch (error: any) {
       if (error.response?.status === 404) {
         Alert.alert("Erro", "Credenciais inválidas.");

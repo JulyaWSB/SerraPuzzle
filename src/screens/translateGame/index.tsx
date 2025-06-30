@@ -11,6 +11,8 @@ import {
 import styles from "./styles";
 import { translateWord } from "../../service/translateApi/translateGameService";
 import { languages } from "../../utils/languages";
+import heartFull from "../../assets/heartGame.png";
+import heartEmpty from "../../assets/heartGameWhite.png";
 
 //array com palavras em português
 const palavras = [
@@ -198,8 +200,17 @@ export function TranslateGame() {
       resizeMode="cover"
     >
       <View style={styles.status}>
-        <Text style={styles.statusText}>❤️ Vidas: {lives}</Text>
-        <Text style={styles.statusText}>⭐ Pontos: {score}/5</Text>
+        <View style={styles.livesContainer}>
+          {Array.from({ length: 3 }).map((_, index) => (
+            <Image
+              key={index}
+              source={index < lives ? heartFull : heartEmpty}
+              style={styles.heart}
+              resizeMode="contain"
+            />
+          ))}
+        </View>
+        <Text style={styles.statusText}>{score}/5</Text>
       </View>
 
       <View style={styles.container}>
