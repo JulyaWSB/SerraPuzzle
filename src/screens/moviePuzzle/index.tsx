@@ -3,7 +3,7 @@ import { View, Text, ImageBackground, ActivityIndicator } from 'react-native';
 import { useMovieGame } from '../../hooks/moviePuzzleFunctions/movieFunctions';
 import { GenreOptions } from '../../components/GeneroOptions/GenreOptions';
 import styles from './styles';
-import { AlertaPixelArt } from '../../components/alertMoviePuzzlee/alertaMovie';
+import { AlertaPixelArt } from '../../components/alertMovie/alertaMovie';
 
 export function MoviePuzzle() {
   const {
