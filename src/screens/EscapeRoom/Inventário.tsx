@@ -3,18 +3,20 @@ import { View, Text, FlatList, StyleSheet } from 'react-native';
 import { GameContext } from './GameContext';
 
 const Inventory = () => {
+  // Obtém o inventário do contexto do jogo
   const { inventory } = useContext(GameContext)!;
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>🧰 Inventário</Text>
 
+      {/* se não houver itens, mostra mensagem */}
       {inventory.length === 0 ? (
         <Text style={styles.emptyText}>Você ainda não coletou nenhum item.</Text>
       ) : (
         <FlatList
           data={inventory}
-          keyExtractor={(item, index) => index.toString()}
+          keyExtractor={(_, index) => index.toString()}
           renderItem={({ item }) => (
             <View style={styles.itemBox}>
               <Text style={styles.itemText}>• {item}</Text>
