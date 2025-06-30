@@ -50,7 +50,6 @@ export function Login({ onLogin }: { onLogin?: () => void }) {
     >
       <View style={styles.container}>
         <Text style={styles.title}>Log In</Text>
-<<<<<<< HEAD
         <Input label="E-mail" value={email} onChangeText={setEmail} />
         <Input
           label="Senha"
@@ -59,11 +58,6 @@ export function Login({ onLogin }: { onLogin?: () => void }) {
           secureTextEntry
         />
         <TouchableOpacity onPress={handleLogin}>
-=======
-        <Input label="E-mail" />
-        <Input label="Senha" />
-        <TouchableOpacity onPress={onLogin}>
->>>>>>> 8f62a774eddfd5b65ba1364711fe48cc7669374e
           <Image
             source={require("../../assets/botao.png")}
             style={styles.startButton}
@@ -75,7 +69,7 @@ export function Login({ onLogin }: { onLogin?: () => void }) {
         <TouchableOpacity>
           <Text
             style={styles.textoCadastro}
-            // onPress={() => navigation.navigate("Cadastro")}
+          // onPress={() => navigation.navigate("Cadastro")}
           >
             {" "}
             Cadastre-se aqui!

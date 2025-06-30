@@ -4,7 +4,7 @@ import { View, Text, Button, StyleSheet, ImageBackground } from 'react-native';
 const FinishScreen = ({ navigation }: { navigation: any }) => {
   return (
     <ImageBackground
-      source={require('../../assets/images/livre.jpeg')}
+      source={require('../../assets/images/livro (1).png')}
       style={styles.container}
       resizeMode="cover"
     >

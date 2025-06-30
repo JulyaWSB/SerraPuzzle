@@ -25,7 +25,6 @@ function MyStack() {
       <Stack.Screen name="Cadastro" component={Cadastro} />
       <Stack.Screen name="Bomb Click" component={BombCliker} />
       <Stack.Screen name="Translate Game" component={TranslateGame} />
-      <Stack.Screen name="Translate Game" component={TranslateGame} />
       <Stack.Screen name="Room1" component={Room1} />
       <Stack.Screen name="Room2" component={Room2} />
       <Stack.Screen name="Room3" component={Room3} />
