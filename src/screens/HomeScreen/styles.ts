@@ -44,18 +44,21 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     justifyContent: 'center',
+    alignItems: 'center',
     width: '100%',
     marginTop: 30,
   },
   // cada card do grid de puzzles
   card: {
-    width: 173,
-    height: 173,
-    margin: 10,
+    width: '44%', // Garante 2 colunas
+    aspectRatio: 1,
+    margin: '3%',
     backgroundColor: 'rgba(255, 255, 255, 0.89)', 
     borderWidth: 5,
     borderColor: 'rgba(255, 136, 0, 0.92)', 
     borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   // icones genéricos
   icon: {
