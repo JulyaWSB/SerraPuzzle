@@ -28,8 +28,8 @@ export function Login() {
         password: senha,
       });
 
-      await AsyncStorage.setItem("token", response.data.token);
-      await AsyncStorage.setItem("nome", response.data.user.name);
+      await AsyncStorage.setItem("token", response.data?.content?.token);
+      await AsyncStorage.setItem("nome", response.data?.content?.user?.name);
 
       Alert.alert("Sucesso", "Bem-vindo!");
     } catch (error: any) {
