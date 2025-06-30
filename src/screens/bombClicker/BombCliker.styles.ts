@@ -22,6 +22,14 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
+  modalContainer: {
+    width: '80%',
+    height: "50%",
+    justifyContent: "center",
+    alignItems: "center"
+  },
+
+  
  
 })
 
