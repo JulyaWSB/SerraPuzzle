@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { getGenres, getPopularMovies } from '../../services/MovieApi/movieApiIndex';
 
 export type Genre = {
@@ -69,40 +69,81 @@ export function useMovieGame() {
     return opcoes;
   };
 
+ const navigation = useNavigation();
+
+ const [alerta, setAlerta] = useState<{
+  visivel: boolean;
+  titulo: string;
+  mensagem: string;
+  acaoPosAlerta?: () => void;  // função opcional
+}>({
+  visivel: false,
+  titulo: '',
+  mensagem: ''
+});
+
   const verificarGenero = (generoEscolhidoId: number) => {
-    if (!movie) return;
+  if (!movie) return;
 
-    if (movie.genre_ids.includes(generoEscolhidoId)) {
-      const novosAcertos = acertos + 1;
-      setAcertos(novosAcertos);
-      Alert.alert('Acertou!', 'Você acertou o gênero do filme!');
+  if (movie.genre_ids.includes(generoEscolhidoId)) {
+    const novosAcertos = acertos + 1;
+    setAcertos(novosAcertos);
 
-      if (novosAcertos >= 3) {
-        Alert.alert('Parabéns!', 'Você acertou a quantidade nescessaria de filmes! O número que você buscava era 8.');
-        setAcertos(0);
-        setVidas(3);
-      }
-
-      sortearFilme();
+    if (novosAcertos >= 3) {
+      setAlerta({
+        visivel: true,
+        titulo: '🎇 Parabéns! 🎇',
+        mensagem: 'Você acertou a quantidade necessária! O número que você busca é [][][][][8][]!',
+        acaoPosAlerta: () => {
+          setAcertos(0);
+          setVidas(3);
+          sortearFilme();
+        }
+      });
     } else {
-      const novasVidas = vidas - 1;
-      setVidas(novasVidas);
-
-      if (novasVidas <= 0) {
-        Alert.alert('Fim de jogo', 'Você perdeu todas as vidas!');
-        setAcertos(0);
-        setVidas(3);
-      } else {
-        Alert.alert('Errou!', `Você errou! Vidas restantes: ${novasVidas}`);
-      }
+      setAlerta({
+        visivel: true,
+        titulo: '🎉 Acertou! 🎉',
+        mensagem: 'Você acertou o gênero do filme!',
+        acaoPosAlerta: () => {
+          sortearFilme();
+        }
+      });
     }
-  };
+
+  } else {
+    const novasVidas = vidas - 1;
+    setVidas(novasVidas);
+
+    if (novasVidas <= 0) {
+      setAlerta({
+        visivel: true,
+        titulo: '😢 Que pena! 😢',
+        mensagem: 'Você perdeu todas as suas vidas!',
+        acaoPosAlerta: () => {
+          setAcertos(0);
+          setVidas(3);
+          sortearFilme();
+        }
+      });
+    } else {
+      setAlerta({
+        visivel: true,
+        titulo: '❌ Errou! ❌',
+        mensagem: `Você errou! Vidas restantes: ${novasVidas}`,
+        acaoPosAlerta: undefined  // sem ação extra após fechar
+      });
+    }
+  }
+};
 
   return {
     movie,
     loading,
     vidas,
     acertos,
+    alerta,
+    setAlerta,
     getOpcoesDeGenero,
     verificarGenero
   };
