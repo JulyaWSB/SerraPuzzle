@@ -20,7 +20,6 @@ export function ContadorProvider({ children }: ContadorProviderProps) {
   const [clicks, setClicks] = useState(0);
   const [isRunningContador, setIsRunningContador] = useState(isRunningCronometro);
 
-  // Atualiza quando o cronômetro mudar
   useEffect(() => {
     setIsRunningContador(isRunningCronometro);
   }, [isRunningCronometro]);

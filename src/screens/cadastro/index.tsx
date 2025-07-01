@@ -10,12 +10,19 @@ import styles from "./styles";
 import { Input } from "../../components/input";
 import { useState } from "react";
 import { apiLogin } from "../../service/loginApi/loginConnection";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../../routes/StackNavigator";
+import { useNavigation } from "@react-navigation/native";
+
+type NavigationProps = NativeStackNavigationProp<RootStackParamList>;
 
 export function Cadastro() {
   const [nomeCadastro, setNomeCadastro] = useState("");
   const [emailCadastro, setEmailCadastro] = useState("");
   const [senhaCadastro, setSenhaCadastro] = useState("");
   const [senhaCadastroConfirm, setSenhaCadastroConfirm] = useState("");
+
+  const navigation = useNavigation<NavigationProps>();
 
   const senhaForte =
     /^(?=(?:.*\d){6,})(?=.*[a-z])(?=.*[A-Z])(?=.*[!@*#&]).{8,}$/;
@@ -59,6 +66,7 @@ export function Cadastro() {
 
       await apiLogin.post("/auth/register", dados);
       Alert.alert("Sucesso", "Cadastro realizado com sucesso!");
+      navigation.navigate("Login");
     } catch (err: any) {
       const status = err.response?.status;
       const mensagem = err.response?.data?.message || "";
@@ -114,7 +122,7 @@ export function Cadastro() {
       </View>
       <View style={styles.temLogin}>
         <Text style={styles.textoLogin}>Já possuí cadastro? </Text>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate("Login")}>
           <Text style={styles.textoLogin}> Entre aqui!</Text>
         </TouchableOpacity>
       </View>
