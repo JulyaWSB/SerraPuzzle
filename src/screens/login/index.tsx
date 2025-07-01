@@ -63,6 +63,7 @@ export function Login({ onLogin }: { onLogin?: () => void }) {
     >
       <View style={styles.container}>
         <Text style={styles.title}>Log In</Text>
+<<<<<<< HEAD
         <Input label="E-mail" value={email} onChangeText={setEmail} />
         <Input
           label="Senha"
@@ -71,6 +72,11 @@ export function Login({ onLogin }: { onLogin?: () => void }) {
           secureTextEntry
         />
         <TouchableOpacity onPress={handleLogin}>
+=======
+        <Input label="E-mail" />
+        <Input label="Senha" />
+        <TouchableOpacity onPress={onLogin}>
+>>>>>>> 644662f1d0e64ce5b1cdf3a520c0112d54fa7db4
           <Image
             source={require("../../assets/botao.png")}
             style={styles.startButton}
