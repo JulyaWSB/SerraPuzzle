@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Alert } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
 import { getGenres, getPopularMovies } from '../../services/MovieApi/movieApiIndex';
 
 export type Genre = {
@@ -69,6 +69,8 @@ export function useMovieGame() {
     return opcoes;
   };
 
+ const navigation = useNavigation();
+
  const [alerta, setAlerta] = useState<{
   visivel: boolean;
   titulo: string;
@@ -79,7 +81,6 @@ export function useMovieGame() {
   titulo: '',
   mensagem: ''
 });
-
 
   const verificarGenero = (generoEscolhidoId: number) => {
   if (!movie) return;
