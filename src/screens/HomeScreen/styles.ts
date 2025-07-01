@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
   },
   // cada card do grid de puzzles
   card: {
-    width: '44%', // Garante 2 colunas
+    width: '44%', // garantindo 2 colunas
     aspectRatio: 1,
     margin: '3%',
     backgroundColor: 'rgba(255, 255, 255, 0.89)', 

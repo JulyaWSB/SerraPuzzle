@@ -33,7 +33,7 @@ export function HomeScreen({ navigation }: { navigation: any }) {
       </View>
 
       <Image
-        source={require('../../assets/images/título.png')}
+        source={require('../../assets/loginBg.png')}
         style={styles.tituloImage}
         resizeMode="contain"
       />
