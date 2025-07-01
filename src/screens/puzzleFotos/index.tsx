@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Image, TouchableOpacity, Alert, Modal, TextInput } from 'react-native';
+import { View, Text, Image, TouchableOpacity, Alert, Modal, TextInput, ImageBackground } from 'react-native';
 import styles from './styles';
 
+import bgImage from '../../assets/loginBg.png';
 import manhaImg from '../../assets/manha.png';
 import meioDiaImg from '../../assets/meioDia.png';
 import tardeImg from '../../assets/tarde.png';
@@ -15,23 +16,17 @@ const imagensPorHorario = [
 ];
 
 function gerarSequenciaCerta(horaUsuario: string) {
-  // Converte a hora do usuário em minutos
   const [horaU, minU] = horaUsuario.split(':').map(Number);
   const minutosUsuario = horaU * 60 + minU;
 
-  // Mapeia cada horário das imagens para minutos
   const horariosEmMinutos = imagensPorHorario.map(item => {
     const [h, m] = item.hora.split(':').map(Number);
     return { ...item, minutos: h * 60 + m };
   });
 
-  // Filtra os horários que são maiores que o horário do usuário
   const proximosHorarios = horariosEmMinutos.filter(item => item.minutos > minutosUsuario);
-
-  // Ordena os horários filtrados
   const ordenados = horariosEmMinutos.sort((a, b) => a.minutos - b.minutos);
 
-  // Se houver horários futuros, começa por eles; senão começa do menor (meia-noite)
   const sequencia = proximosHorarios.length > 0
     ? [...proximosHorarios, ...ordenados.filter(item => item.minutos <= minutosUsuario)]
     : ordenados;
@@ -49,7 +44,7 @@ function embaralhar<T>(array: T[]): T[] {
 }
 
 export function PuzzleFotos() {
-  const [horaUsuario, setHoraUsuario] = useState<string>(''); // agora dinâmico
+  const [horaUsuario, setHoraUsuario] = useState<string>('');
   const [modalVisible, setModalVisible] = useState(true);
   const [inputHora, setInputHora] = useState('');
 
@@ -104,61 +99,62 @@ export function PuzzleFotos() {
   };
 
   return (
-    <View style={styles.container}>
-      {/* Modal de input */}
-      <Modal visible={modalVisible} transparent animationType="slide">
-  <View style={styles.modalOverlay}>
-    <View style={styles.modalContent}>
-      <Text style={styles.modalTitulo}>Digite a hora que você acordou</Text>
-      <TextInput
-        style={styles.inputHora}
-        placeholder="HH:MM"
-        value={inputHora}
-        onChangeText={(text) => {
-          let formatted = text.replace(/[^\d]/g, '');
-          if (formatted.length > 2) {
-            formatted = formatted.slice(0, 2) + ':' + formatted.slice(2, 4);
-          }
-          if (formatted.length > 5) {
-            formatted = formatted.slice(0, 5);
-          }
-          setInputHora(formatted);
-        }}
-        keyboardType="numeric"
-      />
-      <TouchableOpacity onPress={confirmarHora} style={styles.botaoConfirmar}>
-        <Text style={styles.botaoConfirmarTexto}>Confirmar</Text>
-      </TouchableOpacity>
-    </View>
-  </View>
-</Modal>
+    <ImageBackground source={bgImage} style={styles.container}>
+      <View style={styles.overlay}>
+        <Modal visible={modalVisible} transparent animationType="slide">
+          <View style={styles.modalOverlay}>
+            <View style={styles.modalContent}>
+              <Text style={styles.modalTitulo}>Digite a hora que você acordou</Text>
+              <TextInput
+                style={styles.inputHora}
+                placeholder="HH:MM"
+                value={inputHora}
+                onChangeText={(text) => {
+                  let formatted = text.replace(/[^\d]/g, '');
+                  if (formatted.length > 2) {
+                    formatted = formatted.slice(0, 2) + ':' + formatted.slice(2, 4);
+                  }
+                  if (formatted.length > 5) {
+                    formatted = formatted.slice(0, 5);
+                  }
+                  setInputHora(formatted);
+                }}
+                keyboardType="numeric"
+              />
+              <TouchableOpacity onPress={confirmarHora} style={styles.botaoConfirmar}>
+                <Text style={styles.botaoConfirmarTexto}>Confirmar</Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </Modal>
 
-      <Text style={styles.titulo}>Selecione as imagens na ordem do seu dia</Text>
+        <Text style={styles.titulo}>Selecione as imagens na ordem do seu dia</Text>
 
-      <View style={styles.grid}>
-        {imagensEmbaralhadas.map((item, index) => (
-          <TouchableOpacity
-            key={index}
-            onPress={() => selecionarHorario(item.hora)}
-            disabled={respostaUsuario.includes(item.hora)}
-            style={[
-              styles.card,
-              respostaUsuario.includes(item.hora) && styles.selecionado,
-            ]}
-          >
-            <Image source={item.imagem} style={styles.imagem} />
-            <Text style={styles.texto}>{item.hora}</Text>
-          </TouchableOpacity>
-        ))}
+        <View style={styles.grid}>
+          {imagensEmbaralhadas.map((item, index) => (
+            <TouchableOpacity
+              key={index}
+              onPress={() => selecionarHorario(item.hora)}
+              disabled={respostaUsuario.includes(item.hora)}
+              style={[
+                styles.card,
+                respostaUsuario.includes(item.hora) && styles.selecionado,
+              ]}
+            >
+              <Image source={item.imagem} style={styles.imagem} />
+              <Text style={styles.texto}>{item.hora}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+
+        <Text style={styles.textoResposta}>
+          Sua sequência: {respostaUsuario.join(' → ')}
+        </Text>
+
+        <TouchableOpacity onPress={limparSequencia} style={styles.botaoLimpar}>
+          <Text style={styles.botaoLimparTexto}>Limpar sequência</Text>
+        </TouchableOpacity>
       </View>
-
-      <Text style={styles.textoResposta}>
-        Sua sequência: {respostaUsuario.join(' → ')}
-      </Text>
-
-      <TouchableOpacity onPress={limparSequencia} style={styles.botaoLimpar}>
-        <Text style={styles.botaoLimparTexto}>Limpar sequência</Text>
-      </TouchableOpacity>
-    </View>
+    </ImageBackground>
   );
 }

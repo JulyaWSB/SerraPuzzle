@@ -4,6 +4,7 @@ const styles = StyleSheet.create({
   bg: {
     flex: 1,
   },
+
   container: {
     flex: 1,
     backgroundColor: "rgba(0, 0, 0, 0.2)",
@@ -12,6 +13,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     padding: 20,
   },
+
   title: {
     fontFamily: "PressStart2P",
     color: "#ffd700",
@@ -21,12 +23,14 @@ const styles = StyleSheet.create({
     textShadowOffset: { width: 4, height: 3 },
     textShadowRadius: 1,
   },
+
   startButton: {
     width: 240,
     height: 80,
     resizeMode: "contain",
     marginTop: 20,
   },
+
   temCadastro: {
     flexDirection: "row",
     backgroundColor: "rgba(0, 0, 0, 0.2)",
@@ -37,7 +41,7 @@ const styles = StyleSheet.create({
     color: "#fff",
     fontWeight: 600,
     fontSize: 15,
-    marginBottom: 20,
+    marginBottom: 35,
   },
 });
 

@@ -45,4 +45,24 @@ export default StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 16,
   },
+  overlay: {
+  flex: 1,
+  backgroundColor: 'rgba(0,0,0,0.5)', // escurece para contraste
+  justifyContent: 'center',
+  alignItems: 'center',
+  padding: 20,
+ },
+ inputAlterar: {
+  backgroundColor: '#fff',
+  padding: 10,
+  borderRadius: 8,
+  marginBottom: 10,
+  fontSize: 16,
+},
+botaoSalvar: {
+  backgroundColor: '#2196F3',
+  padding: 15,
+  borderRadius: 10,
+  alignItems: 'center',
+},
 });
