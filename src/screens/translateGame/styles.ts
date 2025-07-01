@@ -35,7 +35,6 @@ const styles = StyleSheet.create({
     color: "#fff",
     padding: 20,
     marginBottom: 20,
-    marginHorizontal: 20,
     textAlign: "center",
     borderWidth: 4,
     borderColor: "#ffd700",
@@ -61,28 +60,40 @@ const styles = StyleSheet.create({
   status: {
     width: "100%",
     backgroundColor: "#fff",
+    paddingTop: 50,
     paddingHorizontal: 20,
-    paddingVertical: 20,
+    paddingVertical: 10,
     flexDirection: "row",
     justifyContent: "space-between",
-    paddingTop: 60,
+    alignItems: "center",
     marginBottom: 16,
   },
 
   statusText: {
     fontFamily: "PressStart2P",
-    fontSize: 13,
+    fontSize: 18,
     color: "#000",
     marginHorizontal: 8,
-    alignItems: "center",
+    textAlignVertical: "center",
   },
 
   icon: {
-    width: 50,
-    height: 50,
+    width: 30,
+    height: 30,
     marginHorizontal: 5,
     marginBottom: 20,
     alignSelf: "center",
+  },
+
+  livesContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+
+  heart: {
+    width: 24,
+    height: 24,
+    marginRight: 6,
   },
 });
 

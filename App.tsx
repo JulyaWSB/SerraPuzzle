@@ -14,8 +14,9 @@ export default function App() {
     return null;
   }
 
-  //return <Cadastro />;
-  //return <Login />;
-  //return <PuzzleFotos />;
-  return <Perfil />;
+  // return <Cadastro />;
+  return <Login />;
+  // return <PuzzleFotos />;
+  // return <Perfil />;
+  // return <TranslateGame />;
 }

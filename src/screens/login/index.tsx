@@ -28,11 +28,10 @@ export function Login() {
         password: senha,
       });
 
-      await AsyncStorage.setItem("token", response.data.token);
-      await AsyncStorage.setItem("nome", response.data.user.name);
+      await AsyncStorage.setItem("token", response.data?.content?.token);
+      await AsyncStorage.setItem("nome", response.data?.content?.user?.name);
 
       Alert.alert("Sucesso", "Bem-vindo!");
-      console.log("Token:", response.data.token);
     } catch (error: any) {
       if (error.response?.status === 404) {
         Alert.alert("Erro", "Credenciais inválidas.");
