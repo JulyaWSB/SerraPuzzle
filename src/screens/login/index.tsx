@@ -11,10 +11,16 @@ import { useState } from "react";
 import { Input } from "../../components/input";
 import { apiLogin } from "../../service/loginApi/loginConnection";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../../routes/StackNavigator";
 
-export function Login() {
+type NavigationProps = NativeStackNavigationProp<RootStackParamList>;
+
+export function Login({ onLogin }: { onLogin?: () => void }) {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
+  const navigation = useNavigation<NavigationProps>();
 
   async function handleLogin() {
     if (!email || !senha) {
@@ -23,15 +29,23 @@ export function Login() {
     }
 
     try {
-      const response = await apiLogin.post("/auth/signin", {
-        email,
+      const dados = {
+        email: email,
         password: senha,
-      });
+      }
+
+      console.log("Chegou aqui!")
+      const response = await apiLogin.post("/auth/signin", dados);
 
       await AsyncStorage.setItem("token", response.data?.content?.token);
       await AsyncStorage.setItem("nome", response.data?.content?.user?.name);
 
       Alert.alert("Sucesso", "Bem-vindo!");
+<<<<<<< HEAD
+=======
+      console.log("Token:", response.data.token);
+      navigation.navigate("Home");
+>>>>>>> 1ecfad84812954bfed1daa98408646140848e55c
     } catch (error: any) {
       if (error.response?.status === 404) {
         Alert.alert("Erro", "Credenciais inválidas.");
@@ -65,11 +79,8 @@ export function Login() {
       </View>
       <View style={styles.temCadastro}>
         <Text style={styles.textoCadastro}>Não possuí cadastro? </Text>
-        <TouchableOpacity>
-          <Text
-            style={styles.textoCadastro}
-            // onPress={() => navigation.navigate("Cadastro")}
-          >
+        <TouchableOpacity onPress={() => navigation.navigate("Cadastro")}>
+          <Text style={styles.textoCadastro}>
             {" "}
             Cadastre-se aqui!
           </Text>
