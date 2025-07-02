@@ -11,11 +11,13 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: 'rgba(0,0,0,0.5)', // Fundo semi-transparente para melhor contraste
     padding: 20,
+    bottom: 40, 
+    top: 60
+    
   },
 
   scroll: {
     top: 15,
-    bottom: 30,
   },
 
   loadingContainer: {

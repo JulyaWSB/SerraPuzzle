@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, Button, StyleSheet, ImageBackground } from 'react-native';
+import { Button, ImageBackground, StyleSheet, Text, View } from 'react-native';
 
 const FinishScreen = ({ navigation }: { navigation: any }) => {
   return (
@@ -11,6 +11,7 @@ const FinishScreen = ({ navigation }: { navigation: any }) => {
       <View style={styles.contentBox}>
         <Text style={styles.title}>Parabéns!</Text>
         <Text style={styles.subtitle}>Você escapou do desafio!</Text>
+        <Text style={styles.subtitle}>O número que você busca é [][][][][][9]</Text>
         <Button title="Voltar para o início" onPress={() => navigation.navigate('Home')} />
       </View>
     </ImageBackground>

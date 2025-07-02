@@ -144,7 +144,7 @@ export function TranslateGame() {
 
       //se chegar em 5 o jogador vence
       if (newScore === 5) {
-        AsyncStorage.setItem("nivel", "3");
+        AsyncStorage.setItem("nivel", "4");
         Alert.alert(
           "Você acertou a quantidade necessária!",
           "O número que você busca é [][][][4][][]!",

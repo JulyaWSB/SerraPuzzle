@@ -103,7 +103,7 @@ export function PuzzleFotos() {
       setTimeout(() => {
         if (acertou) {
           AsyncStorage.setItem("nivel", "2")
-          Alert.alert('Parabéns!', 'Você acertou a sequência!', [
+          Alert.alert('Parabéns!', 'Você acertou a sequência! O número que você busca é [K][][][][][]', [
             {
               text: 'OK',
               onPress: () => navigation.navigate("Home"),

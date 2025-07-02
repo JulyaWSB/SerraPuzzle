@@ -20,9 +20,6 @@ export const translateWord = async (
     //se n tiver tradução lança um erro
     if (!translatedText) throw new Error("Nenhuma tradução encontrada");
 
-    //para ver se a API ta funcionando -- tirar na hora de apresentar
-    console.log(`Traduzindo "${word}" para "${targetLang}":`, translatedText);
-
     //retorna a palavra traduzida
     return translatedText;
   } catch (error) {

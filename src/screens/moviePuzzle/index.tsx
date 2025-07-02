@@ -31,7 +31,7 @@ export function MoviePuzzle() {
       style={styles.background}
       resizeMode="cover"
     >
-      <ScrollView style={styles.scroll}>
+      <ScrollView >
       <View style={styles.overlay}>
         <Text style={styles.title}>{movie.title}</Text>
         <Text style={styles.descricao}>{movie.overview}</Text>

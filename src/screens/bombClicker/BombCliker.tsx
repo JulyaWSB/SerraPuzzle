@@ -94,7 +94,7 @@ export function BombCliker() {
         setSequenciaCliques([]);
         setEstadoDoJogo('foraDeJogo');
         AsyncStorage.setItem("nivel", "3")
-        navigation.navigate("Translate Game");
+        navigation.navigate("Home");
     };
 
     const voltarParaHome = () => {
@@ -278,6 +278,7 @@ export function BombCliker() {
                                 <View style={styles.modalContainerParabens}>
                                     <Text style={styles.modalTitle}>Parabéns por completar!</Text>
                                     <Text style={styles.secondaryButtonText}>Pontuação Final: {clicks}</Text>
+                                    <Text style={styles.secondaryButtonText}>O número que você busca é [][][L][][][]!</Text>
                                     <View style={styles.containerButtons}>
                                         <TouchableOpacity style={styles.ButtonProximoJogo} onPress={irPraProximoJogo}>
                                             <Text style={styles.secondaryButtonText}>Próximo Jogo</Text>
