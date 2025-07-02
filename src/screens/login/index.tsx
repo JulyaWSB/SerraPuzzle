@@ -41,11 +41,10 @@ export function Login({ onLogin }: { onLogin?: () => void }) {
       await AsyncStorage.setItem("nome", response.data?.content?.user?.name);
 
       Alert.alert("Sucesso", "Bem-vindo!");
-<<<<<<< HEAD
-=======
+
       console.log("Token:", response.data.token);
       navigation.navigate("Home");
->>>>>>> 1ecfad84812954bfed1daa98408646140848e55c
+
     } catch (error: any) {
       if (error.response?.status === 404) {
         Alert.alert("Erro", "Credenciais inválidas.");
@@ -63,7 +62,6 @@ export function Login({ onLogin }: { onLogin?: () => void }) {
     >
       <View style={styles.container}>
         <Text style={styles.title}>Log In</Text>
-<<<<<<< HEAD
         <Input label="E-mail" value={email} onChangeText={setEmail} />
         <Input
           label="Senha"
@@ -72,11 +70,7 @@ export function Login({ onLogin }: { onLogin?: () => void }) {
           secureTextEntry
         />
         <TouchableOpacity onPress={handleLogin}>
-=======
-        <Input label="E-mail" />
-        <Input label="Senha" />
-        <TouchableOpacity onPress={onLogin}>
->>>>>>> 644662f1d0e64ce5b1cdf3a520c0112d54fa7db4
+
           <Image
             source={require("../../assets/botao.png")}
             style={styles.startButton}

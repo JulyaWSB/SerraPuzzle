@@ -1,11 +1,15 @@
 import { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
 import { getGenres, getPopularMovies } from '../../services/MovieApi/movieApiIndex';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../routes/StackNavigator';
 
 export type Genre = {
   id: number;
   name: string;
 };
+
+type NavigationProps = NativeStackNavigationProp<RootStackParamList>;
 
 export function useMovieGame() {
   const [movie, setMovie] = useState<any>(null);
@@ -13,6 +17,7 @@ export function useMovieGame() {
   const [loading, setLoading] = useState(true);
   const [vidas, setVidas] = useState(3);
   const [acertos, setAcertos] = useState(0);
+  const navigation = useNavigation<NavigationProps>();
 
   useEffect(() => {
     carregarGeneros();
@@ -69,8 +74,6 @@ export function useMovieGame() {
     return opcoes;
   };
 
- const navigation = useNavigation();
-
  const [alerta, setAlerta] = useState<{
   visivel: boolean;
   titulo: string;
@@ -98,6 +101,7 @@ export function useMovieGame() {
           setAcertos(0);
           setVidas(3);
           sortearFilme();
+          navigation.navigate("Room1");
         }
       });
     } else {
@@ -119,7 +123,7 @@ export function useMovieGame() {
       setAlerta({
         visivel: true,
         titulo: '😢 Que pena! 😢',
-        mensagem: 'Você perdeu todas as suas vidas!',
+        mensagem: 'Você falhou com o Nikola!',
         acaoPosAlerta: () => {
           setAcertos(0);
           setVidas(3);

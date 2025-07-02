@@ -83,12 +83,23 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
-  modalContainerPause: {
-    width: 350,
+  FundoGameOver: {
+    width: 380,
     height: 500,
     justifyContent: "center",
+    alignItems: "center"
+  },
+
+  modalContainerPause: {
+    width: 350,
+    height: 200,
+    justifyContent: "center",
     alignItems: "center",
-    gap: 15
+    bottom: 20
+  },
+
+  containerButtonsGameOver: {
+    gap: 5
   },
 
   imagemFundoRegras: {
@@ -100,14 +111,13 @@ export const styles = StyleSheet.create({
 
   viewTextos: {
     width: 200,
-    marginBottom: 20
+    marginBottom: 10
   },
 
   modalTitle: {
     fontSize: 25,
     fontFamily: "Tinny",
     color: '#ffffff',
-    marginBottom: 10,
     textAlign: 'center',
     textShadowColor: '#03045e',
     textShadowOffset: { width: 1, height: 1 },
@@ -141,6 +151,22 @@ export const styles = StyleSheet.create({
     textShadowColor: '#03045e',
     textShadowOffset: { width: 1, height: 1 },
     textShadowRadius: 2,
+  },
+
+  containerButtons:{
+    top: 15,
+    gap: 15,
+  },
+
+  modalContainerParabens: {
+    width: 200,
+  },
+
+  imagemFundoParabens: {
+    width: 400,
+    height: 500,
+    justifyContent: "center",
+    alignItems: "center"
   },
 
   /*Botões*/
@@ -190,22 +216,20 @@ export const styles = StyleSheet.create({
 
   buttonContainer: {
     alignItems: 'center',
+    gap: 15
   },
 
   continueButton: {
-    backgroundColor: '#00b4d8',
-    paddingHorizontal: 35,
-    paddingVertical: 15,
-    borderRadius: 25,
-    marginBottom: 15,
-    minWidth: 180,
-    borderWidth: 2,
-    borderColor: '#90e0ef',
-    shadowColor: '#03045e',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.3,
-    shadowRadius: 4,
-    elevation: 5,
+    backgroundColor:"rgba(62, 224, 3, 0.67)",
+    paddingVertical: 2,
+    paddingHorizontal: 67,
+    borderWidth: 4,
+    borderColor: "rgba(9, 149, 1, 0.74)",
+    borderStyle: "solid",
+    shadowColor: "#000",
+    shadowOffset: { width: 4, height: 4 },
+    shadowRadius: 5,
+    elevation: 8,
   },
 
   restartButton: {
@@ -230,6 +254,45 @@ export const styles = StyleSheet.create({
     textShadowColor: '#03045e',
     textShadowOffset: { width: 1, height: 1 },
     textShadowRadius: 1,
+  },
+
+  ButtonProximoJogo:{
+    backgroundColor:"rgba(3, 224, 43, 0.67)",
+    paddingVertical: 1,
+    paddingHorizontal: 10,
+    borderWidth: 4,
+    borderColor: "rgba(0, 175, 20, 0.74)",
+    borderStyle: "solid",
+    shadowColor: "#000",
+    shadowOffset: { width: 4, height: 4 },
+    shadowRadius: 5,
+    elevation: 8,
+  },
+
+  restartButtonParabens: {
+    backgroundColor:"rgba(224, 3, 3, 0.67)",
+    paddingVertical: 2,
+    paddingHorizontal: 10,
+    borderWidth: 4,
+    borderColor: "rgba(175, 0, 0, 0.74)",
+    borderStyle: "solid",
+    shadowColor: "#000",
+    shadowOffset: { width: 4, height: 4 },
+    shadowRadius: 5,
+    elevation: 8,
+  },
+
+  ButtonMenu: {
+    backgroundColor:"rgba(5, 83, 240, 0.72)",
+    paddingVertical: 2,
+    paddingHorizontal: 10,
+    borderWidth: 4,
+    borderColor: "rgba(45, 38, 253, 0.57)",
+    borderStyle: "solid",
+    shadowColor: "#000",
+    shadowOffset: { width: 4, height: 4 },
+    shadowRadius: 5,
+    elevation: 8,
   },
 
   /*Contagem regressiva pra iniciar o jogo*/

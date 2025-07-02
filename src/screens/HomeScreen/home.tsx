@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { View, Text, TouchableOpacity, Image, StatusBar, ImageBackground, Modal, Pressable } from 'react-native';
 import styles from './styles';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { useNavigation } from '@react-navigation/native';
+import { RootStackParamList } from '../../routes/StackNavigator';
 
 const gridCards = [
   {
@@ -14,8 +17,17 @@ const gridCards = [
   {}, {}, {}, {}, // outros cards p add imagem
 ];
 
-export function HomeScreen({ navigation }: { navigation: any }) {
+type NavigationProps = NativeStackNavigationProp<RootStackParamList>;
+
+export function HomeScreen() {
   const [menuVisible, setMenuVisible] = useState(false);
+  const navigation = useNavigation<NavigationProps>();
+
+  const handleFotos = (i : number) => {
+    if( i === 0) {
+      navigation.navigate("PuzzleFotos");
+    }
+  }
 
   return (
     <ImageBackground
@@ -44,7 +56,7 @@ export function HomeScreen({ navigation }: { navigation: any }) {
           <TouchableOpacity
             key={i}
             style={styles.card}
-            onPress={card.onPress ? () => card.onPress(navigation) : undefined}
+            onPress={() => handleFotos(i)}
           >
             {card.image && (
               <Image

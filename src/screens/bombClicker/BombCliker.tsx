@@ -13,19 +13,23 @@ import { useCronometro } from "../../context/CronometroContext";
 import { Bomba } from "../../components/PuzzleClickBomb/bomba/Bomba";
 import { useContador } from "../../context/ContadorContext";
 import { useState, useEffect } from "react";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../../routes/StackNavigator";
+import { useNavigation } from "@react-navigation/native";
 
-type EstadoDoJogo = 'regras' | 'pronto' | 'contagem' | 'jogando' | 'pausado';
+type EstadoDoJogo = 'regras' | 'pronto' | 'contagem' | 'jogando' | 'pausado' | 'foraDeJogo';
+
+type NavigationProps = NativeStackNavigationProp<RootStackParamList>;
 
 export function BombCliker() {
     const [estadoDoJogo, setEstadoDoJogo] = useState<EstadoDoJogo>('regras');
     const [tempoContagem, setTempoContagem] = useState(3);
     const [sequenciaCliques, setSequenciaCliques] = useState<number[]>([]);
     const [ultimoClique, setUltimoClique] = useState(0);
-
     const { segundos, centesimos, isRunningCronometro, start, pause, reset, addTime, millis } = useCronometro();
     const { resetContador, clicks } = useContador();
-
     const tempoEsgotado = millis === 0;
+    const navigation = useNavigation<NavigationProps>();
 
     useEffect(() => {
         if (sequenciaCliques.length >= 10) {
@@ -84,6 +88,22 @@ export function BombCliker() {
         setEstadoDoJogo('pronto');
     };
 
+    const irPraProximoJogo = () => {
+        reset();
+        resetContador();
+        setSequenciaCliques([]);
+        setEstadoDoJogo('foraDeJogo');
+        navigation.navigate("Translate Game");
+    };
+
+    const voltarParaHome = () => {
+        reset();
+        resetContador();
+        setSequenciaCliques([]);
+        setEstadoDoJogo('foraDeJogo');
+        navigation.navigate("Home");
+    };
+
     const voltarParaRegras = () => {
         reset();
         resetContador();
@@ -108,6 +128,7 @@ export function BombCliker() {
                         <Text style={styles.modalText}>⏰ Você tem tempo limitado de um minuto inicial;</Text>
                         <Text style={styles.modalText}>🔥 10 cliques rápidos em 5 segundos = +2s de bônus;</Text>
                         <Text style={styles.modalText}>⚡ Seja rápido e estratégico, o objetivo: 500 clicks!</Text>
+                        <Text style={styles.modalText}>❗ Mas atenção, você só deve efetuar um click por vez, se quiser que o contador aumente...</Text>
                     </View>
 
                     <TouchableOpacity style={styles.Button} onPress={() => setEstadoDoJogo('pronto')}>
@@ -160,7 +181,6 @@ export function BombCliker() {
         ];
     };
 
-
     const renderCountdownModal = () => (
         <Modal visible={estadoDoJogo === 'contagem'} transparent animationType="fade">
             <View style={styles.overlay}>
@@ -178,30 +198,30 @@ export function BombCliker() {
             <Pressable style={styles.overlay} onPress={fecharModalPausa}>
                 <Pressable onPress={(e) => e.stopPropagation()}>
                     <ImageBackground source={require("../../assets/PáginasPixelArt.png")} style={styles.modalContainerPause}>
-                            <Text style={styles.modalTitle}>JOGO PAUSADO</Text>
+                        <Text style={styles.modalTitle}>JOGO PAUSADO</Text>
 
-                            <View>
-                                <Text style={styles.secondaryButtonText}>
-                                    Tempo restante: {segundos}:{centesimos}
-                                </Text>
-                                <Text>
-                                    Pontuação: {clicks}
-                                </Text>
-                            </View>
+                        <View>
+                            <Text style={styles.secondaryButtonText}>
+                                Tempo restante: {segundos}:{centesimos}
+                            </Text>
+                            <Text style={styles.secondaryButtonText}>
+                                Pontuação: {clicks}
+                            </Text>
+                        </View>
 
-                            <View style={styles.buttonContainer}>
-                                <TouchableOpacity style={styles.continueButton} onPress={continuarJogo}>
-                                    <Text style={styles.secondaryButtonText}>Continuar</Text>
-                                </TouchableOpacity>
+                        <View style={styles.buttonContainer}>
+                            <TouchableOpacity style={styles.continueButton} onPress={continuarJogo}>
+                                <Text style={styles.secondaryButtonText}>Continuar</Text>
+                            </TouchableOpacity>
 
-                                <TouchableOpacity style={styles.restartButton} onPress={reiniciarJogo}>
-                                    <Text style={styles.secondaryButtonText}>Reiniciar</Text>
-                                </TouchableOpacity>
+                            <TouchableOpacity style={styles.restartButton} onPress={reiniciarJogo}>
+                                <Text style={styles.secondaryButtonText}>Reiniciar</Text>
+                            </TouchableOpacity>
 
-                                <TouchableOpacity style={styles.secondaryButton} onPress={voltarParaRegras}>
-                                    <Text style={styles.secondaryButtonText}>Menu Principal</Text>
-                                </TouchableOpacity>
-                            </View>
+                            <TouchableOpacity style={styles.secondaryButton} onPress={voltarParaRegras}>
+                                <Text style={styles.secondaryButtonText}>Menu Principal</Text>
+                            </TouchableOpacity>
+                        </View>
                     </ImageBackground>
                 </Pressable>
             </Pressable>
@@ -211,24 +231,49 @@ export function BombCliker() {
     const renderGameOverModal = () => (
         <Modal visible={tempoEsgotado && estadoDoJogo === "jogando"} transparent animationType="fade">
             <View style={styles.overlay}>
-                <View style={styles.modalContainerPause}>
-                    <Text style={styles.gameOverTitle}>TEMPO ESGOTADO!</Text>
-                    <Text style={styles.finalScore}>Pontuação Final: {clicks}</Text>
 
-                    <TouchableOpacity
-                        style={styles.restartButton}
-                        onPress={reiniciarJogo}
-                    >
-                        <Text style={styles.buttonText}>Jogar Novamente</Text>
-                    </TouchableOpacity>
 
-                    <TouchableOpacity
-                        style={styles.secondaryButton}
-                        onPress={voltarParaRegras}
-                    >
-                        <Text style={styles.secondaryButtonText}>Menu Principal</Text>
-                    </TouchableOpacity>
-                </View>
+                {clicks <= 1 ? (
+                    <ImageBackground source={require("../../assets/PaginaPixelArt3.png")} style={styles.FundoGameOver}>
+                        <View style={styles.modalContainerPause}>
+                            <Text style={styles.modalTitle}>TEMPO ESGOTADO!</Text>
+                            <Text style={styles.secondaryButtonText}>Pontuação Final: {clicks}</Text>
+
+                            <View style={styles.containerButtonsGameOver}>
+                                <TouchableOpacity style={styles.restartButton} onPress={reiniciarJogo}>
+                                    <Text style={styles.secondaryButtonText}>Jogar Novamente</Text>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity style={styles.secondaryButton} onPress={voltarParaHome} >
+                                    <Text style={styles.secondaryButtonText}>Menu Principal</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </ImageBackground>
+                ) : (
+                    <ImageBackground source={require("../../assets/PáginasPixelArt.png")} style={styles.imagemFundoParabens}>
+                        <View style={styles.modalContainerParabens}>
+                            <Text style={styles.modalTitle}>Parabéns por completar o Jogo com sucesso!</Text>
+                            <Text style={styles.secondaryButtonText}>Pontuação Final: {clicks}</Text>
+
+                            <View style={styles.containerButtons}>
+                                <TouchableOpacity style={styles.ButtonProximoJogo} onPress={irPraProximoJogo}>
+                                    <Text style={styles.secondaryButtonText}>Próximo Jogo</Text>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity style={styles.restartButtonParabens} onPress={reiniciarJogo}>
+                                    <Text style={styles.secondaryButtonText}>Jogar Novamente</Text>
+                                </TouchableOpacity>
+
+                                <TouchableOpacity style={styles.ButtonMenu} onPress={voltarParaHome} >
+                                    <Text style={styles.secondaryButtonText}>Menu Principal</Text>
+                                </TouchableOpacity>
+                            </View>
+                        </View>
+                    </ImageBackground>
+                )}
+
+
             </View>
         </Modal>
     );
