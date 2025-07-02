@@ -5,6 +5,7 @@ import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
 import { RootStackParamList } from '../../routes/StackNavigator';
 
+
 const gridCards = [
   {
     image: require('../../assets/cauã.png'),
@@ -92,12 +93,22 @@ export function HomeScreen() {
         <Pressable style={styles.modalOverlay} onPress={() => setMenuVisible(false)}>
           <View style={styles.menuBox}>
             <Text style={styles.menuTitle}>Menu</Text>
+            
+            <TouchableOpacity style={styles.menuItem} onPress={() => {
+              setMenuVisible(false); 
+              navigation.navigate('Perfil'); 
+            }}>
+              <Text style={styles.menuItemText}>Perfil</Text>
+            </TouchableOpacity>
+
             <TouchableOpacity style={styles.menuItem}>
               <Text style={styles.menuItemText}>Sobre</Text>
             </TouchableOpacity>
+
             <TouchableOpacity style={styles.menuItem}>
               <Text style={styles.menuItemText}>Configurações</Text>
             </TouchableOpacity>
+
           </View>
         </Pressable>
       </Modal>

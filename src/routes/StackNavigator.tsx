@@ -4,6 +4,7 @@ import { Login } from '../screens/login';
 import { BombCliker } from '../screens/bombClicker/BombCliker';
 import { TranslateGame } from '../screens/translateGame';
 import { HomeScreen } from '../screens/HomeScreen/home';
+import { Perfil } from '../screens/perfil';
 import Room1 from '../screens/EscapeRoom/Room1';
 import Room2 from '../screens/EscapeRoom/Room2';
 import Room3 from '../screens/EscapeRoom/Room3';
@@ -12,10 +13,12 @@ import { BottonTabBomb } from './BottonTabNavigator/BottonTabNavigator';
 import { PuzzleFotos } from '../screens/puzzleFotos';
 import { MoviePuzzle } from '../screens/moviePuzzle';
 
+
 export type RootStackParamList = {
   'Bomb Click': undefined;
   Login: undefined;
   Home: undefined;
+  Perfil: undefined;
   Cadastro: undefined;
   'Translate Game': undefined;
   Room1: undefined;
@@ -39,6 +42,7 @@ function MyStack() {
     >
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Home" component={HomeScreen} />
+      <Stack.Screen name="Perfil" component={Perfil} />
       <Stack.Screen name="MoviePuzzle" component={MoviePuzzle} />
       <Stack.Screen name="Translate Game" component={TranslateGame} />
       <Stack.Screen name="Cadastro" component={Cadastro} />

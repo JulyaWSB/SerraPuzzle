@@ -99,7 +99,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 30,
     marginBottom: 10,
-    color: 'rgb(250, 5, 5)', 
+    color: 'rgb(250, 95, 5)', 
   },
   // cada item do menu (ex: Sobre, Configurações)
   menuItem: {
