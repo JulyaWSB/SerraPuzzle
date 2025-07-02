@@ -37,17 +37,17 @@ function MyStack() {
         gestureEnabled: true,
       }}
     >
-      <Stack.Screen name="Room1" component={Room1} />
+      <Stack.Screen name="Login" component={Login} />
+      <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="MoviePuzzle" component={MoviePuzzle} />
       <Stack.Screen name="Translate Game" component={TranslateGame} />
-      <Stack.Screen name="Login" component={Login} />
-      <Stack.Screen name="Bomb Click" component={BottonTabBomb} />
-      <Stack.Screen name="Home" component={HomeScreen} />
       <Stack.Screen name="Cadastro" component={Cadastro} />
+      <Stack.Screen name="Bomb Click" component={BottonTabBomb} />
+      <Stack.Screen name="PuzzleFotos" component={PuzzleFotos} />
+      <Stack.Screen name="Room1" component={Room1} />
       <Stack.Screen name="Room2" component={Room2} />
       <Stack.Screen name="Room3" component={Room3} />
       <Stack.Screen name="Finish" component={FinishScreen} />
-      <Stack.Screen name="PuzzleFotos" component={PuzzleFotos} />
     </Stack.Navigator>
   );
 }
