@@ -1,21 +1,22 @@
-import {
-  Text,
-  TouchableOpacity,
-  View,
-  Image,
-  ImageBackground,
-  Alert,
-} from "react-native";
-import styles from "./styles";
-import { useState } from "react";
-import { Input } from "../../components/input";
-import { apiLogin } from "../../service/loginApi/loginConnection";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { RootStackParamList } from "../../routes/StackNavigator";
-import Icon from "react-native-vector-icons/Feather";
+import { useState } from "react";
+import {
+  Alert,
+  Image,
+  ImageBackground,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
+import { Input } from "../../components/input";
 import { PasswordInput } from "../../components/passwordInput";
+import { useUsuario } from "../../context/UserContext";
+import { RootStackParamList } from "../../routes/StackNavigator";
+import { apiLogin } from "../../service/loginApi/loginConnection";
+import styles from "./styles";
+
 
 type NavigationProps = NativeStackNavigationProp<RootStackParamList>;
 
@@ -24,6 +25,7 @@ export function Login({ onLogin }: { onLogin?: () => void }) {
   const [senha, setSenha] = useState("");
   const navigation = useNavigation<NavigationProps>();
   const [mostrarSenha, setMostrarSenha] = useState(false);
+  const { setUsuario } = useUsuario();
 
   async function handleLogin() {
     if (!email || !senha) {
@@ -37,15 +39,23 @@ export function Login({ onLogin }: { onLogin?: () => void }) {
         password: senha,
       };
 
-      console.log("Chegou aqui!");
       const response = await apiLogin.post("/auth/signin", dados);
+
+      console.log("Resposta da API:", response.data);
 
       await AsyncStorage.setItem("token", response.data?.content?.token);
       await AsyncStorage.setItem("nome", response.data?.content?.user?.name);
 
+      // Salva usuário no contexto
+      const userData = {
+        id: response.data?.content?.user?.id,
+        nome: response.data?.content?.user?.name,
+        email: response.data?.content?.user?.email,
+      };
+      setUsuario(userData);
+
       Alert.alert("Sucesso", "Bem-vindo!");
 
-      console.log("Token:", response.data.token);
       navigation.navigate("Home");
     } catch (error: any) {
       if (error.response?.status === 404) {
@@ -66,7 +76,6 @@ export function Login({ onLogin }: { onLogin?: () => void }) {
         <Text style={styles.title}>Log In</Text>
         <Input label="E-mail" value={email} onChangeText={setEmail} />
         <PasswordInput label="Senha" value={senha} onChangeText={setSenha} />
-
         <TouchableOpacity onPress={handleLogin}>
           <Image
             source={require("../../assets/botao.png")}

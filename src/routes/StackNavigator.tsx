@@ -6,8 +6,8 @@ import Room3 from '../screens/EscapeRoom/Room3';
 import { HomeScreen } from '../screens/HomeScreen/home';
 import { Login } from '../screens/login';
 import { Perfil } from '../screens/perfil';
+import SplashScreen from '../screens/SplashScreen';
 import { BottonTabBomb, BottonTabCharada, BottonTabMovie, BottonTabTempo, BottonTabTranslate } from './BottonTabNavigator/BottonTabNavigator';
-
 
 export type RootStackParamList = {
   'Bomb Click': undefined;
@@ -21,7 +21,9 @@ export type RootStackParamList = {
   Room3: undefined;
   Finish: undefined;
   PuzzleFotos: undefined;
-  MoviePuzzle: undefined
+  MoviePuzzle: undefined;
+  Sobre: undefined;
+  Splash: undefined; 
 };
 
 const Stack = createNativeStackNavigator<RootStackParamList>();
@@ -29,12 +31,14 @@ const Stack = createNativeStackNavigator<RootStackParamList>();
 function MyStack() {
   return (
     <Stack.Navigator
+      initialRouteName="Splash"
       screenOptions={{
         headerShown: false,
         animation: 'fade',
         gestureEnabled: true,
       }}
     >
+      <Stack.Screen name="Splash" component={SplashScreen} />
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Bomb Click" component={BottonTabBomb} />
       <Stack.Screen name="Home" component={HomeScreen} />

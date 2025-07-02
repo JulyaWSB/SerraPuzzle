@@ -1,10 +1,11 @@
 import { useFonts } from "expo-font";
 import { NavigationContainer } from "@react-navigation/native";
-import React, { useState } from "react";
+import React from "react";
 import MyStack from "./src/routes/StackNavigator";
 import { CronometroProvider } from "./src/context/CronometroContext";
 import { ContadorProvider } from "./src/context/ContadorContext";
 import { GameProvider } from "./src/screens/EscapeRoom/GameContext";
+import { UsuarioProvider } from "./src/context/UserContext";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -16,14 +17,16 @@ export default function App() {
   if (!fontsLoaded) return null;
 
   return (
-    <GameProvider>
-      <NavigationContainer>
-        <CronometroProvider>
-          <ContadorProvider>
-            <MyStack />
-          </ContadorProvider>
-        </CronometroProvider>
-      </NavigationContainer>
-    </GameProvider>
+    <UsuarioProvider>
+      <GameProvider>
+        <NavigationContainer>
+          <CronometroProvider>
+            <ContadorProvider>
+              <MyStack />
+            </ContadorProvider>
+          </CronometroProvider>
+        </NavigationContainer>
+      </GameProvider>
+    </UsuarioProvider>
   );
 }
