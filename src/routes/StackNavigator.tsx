@@ -14,11 +14,13 @@ import { BottonTabBomb } from './BottonTabNavigator/BottonTabNavigator';
 import { PuzzleFotos } from '../screens/puzzleFotos';
 import { MoviePuzzle } from '../screens/moviePuzzle';
 import SplashScreen from '../screens/SplashScreen';
+import FatoMalucoNavigator from './FatoMalucoNavigator';
 
 
 export type RootStackParamList = {
   'Bomb Click': undefined;
   Login: undefined;
+  FatoMaluco: undefined;
   Home: undefined;
   Perfil: undefined;
   Cadastro: undefined;
@@ -45,6 +47,7 @@ function MyStack() {
         gestureEnabled: true,
       }}
     >
+      <Stack.Screen name="FatoMaluco" component={FatoMalucoNavigator} />
       <Stack.Screen name="Splash" component={SplashScreen} />
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Home" component={HomeScreen} />

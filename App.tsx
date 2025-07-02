@@ -6,6 +6,7 @@ import { CronometroProvider } from "./src/context/CronometroContext";
 import { ContadorProvider } from "./src/context/ContadorContext";
 import { GameProvider } from "./src/screens/EscapeRoom/GameContext";
 import { UsuarioProvider } from "./src/context/UserContext";
+import { GameAlternativeProvider } from "./src/context/GameAlternativeContext";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
@@ -18,15 +19,17 @@ export default function App() {
 
   return (
     <UsuarioProvider>
-      <GameProvider>
-        <NavigationContainer>
-          <CronometroProvider>
-            <ContadorProvider>
-              <MyStack />
-            </ContadorProvider>
-          </CronometroProvider>
-        </NavigationContainer>
-      </GameProvider>
+      <GameAlternativeProvider>
+        <GameProvider>
+          <NavigationContainer>
+            <CronometroProvider>
+              <ContadorProvider>
+                <MyStack />
+              </ContadorProvider>
+            </CronometroProvider>
+          </NavigationContainer>
+        </GameProvider>
+      </GameAlternativeProvider>
     </UsuarioProvider>
   );
 }
