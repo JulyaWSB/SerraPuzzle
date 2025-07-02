@@ -16,7 +16,6 @@ export function Bomba() {
   const [ultimoTempo, setUltimoTempo] = useState(Date.now());
   const [ultimoClicks, setUltimoClicks] = useState(0);
 
-  // Usar o hook customizado para animações
   const { rotacaoTransform1, rotacaoTransform2 } = useBombaAnimations(clicksPorSegundo);
 
   // Calcula clicks por segundo
@@ -33,7 +32,7 @@ export function Bomba() {
         setUltimoTempo(agora);
         setUltimoClicks(clicks);
       }
-    }, 50); // Atualiza a cada 50ms para ter mais responsividade
+    }, 50);
 
     return () => clearInterval(intervalo);
   }, [clicks, ultimoTempo, ultimoClicks]);
@@ -46,14 +45,12 @@ export function Bomba() {
   }, [isRunningCronometro, millis]);
 
   const clicar = useCallback(() => {
-    // Só permite clicar se o cronômetro estiver rodando E tiver tempo restante
     if (isRunningCronometro && millis > 0) {
       setClicksLocais(prev => prev + 1);
       adicionarClique();
     }
   }, [isRunningCronometro, millis, adicionarClique]);
 
-  // Determina se o componente deve responder aos toques
   const isClickable = isRunningCronometro && millis > 0;
 
   return (

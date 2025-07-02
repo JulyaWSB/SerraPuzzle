@@ -19,7 +19,7 @@ interface CronometroProviderProps {
 
 const CronometroContext = createContext<CronometroContextProps | undefined>(undefined);
 
-export function CronometroProvider({ segundoInicial = 60, children }: CronometroProviderProps) {
+export function CronometroProvider({ segundoInicial = 10, children }: CronometroProviderProps) {
   const [millis, setMillis] = useState(segundoInicial * 1000);
   const [isRunningCronometro, setIsRunningCronometro] = useState(true);
   const [tempoInicial] = useState(segundoInicial * 1000);

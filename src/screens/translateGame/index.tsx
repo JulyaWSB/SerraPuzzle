@@ -13,6 +13,9 @@ import { translateWord } from "../../service/translateApi/translateGameService";
 import { languages } from "../../utils/languages";
 import heartFull from "../../assets/heartGame.png";
 import heartEmpty from "../../assets/heartGameWhite.png";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { RootStackParamList } from "../../routes/StackNavigator";
+import { useNavigation } from "@react-navigation/native";
 
 //array com palavras em português
 const palavras = [
@@ -41,6 +44,8 @@ const languageMap: Record<string, string> = {
   tr: "Turco",
   zh: "Mandarim",
 };
+
+type NavigationProps = NativeStackNavigationProp<RootStackParamList>;
 
 //função para pegar um item aleatório de um array
 const getRandomItem = <T,>(arr: T[]): T =>
@@ -81,6 +86,21 @@ export function TranslateGame() {
   const [lives, setLives] = useState(3); //guarda a quantidade de vidas
   const [score, setScore] = useState(0); //guarda o "avanço"/acertos
   const [highlightedIndex, setHighlightedIndex] = useState(-1); //para mudar a cor da opções
+  const navigation = useNavigation<NavigationProps>();
+
+  const handleReset = () => {
+    setScore(0);
+    setLives(3);
+    generateChallenge();
+  };
+
+  const handleProximo = () => {
+    navigation.navigate("MoviePuzzle");
+  };
+
+  const handleHome = () => {
+    navigation.navigate("Home");
+  };
 
   //função que gera um novo desafio
   const generateChallenge = async () => {
@@ -121,19 +141,27 @@ export function TranslateGame() {
       const newScore = score + 1; //se estiver certo vc avança mais 1 na estrela
       setScore(newScore);
 
-      //se chegar em 5 o jogador vence -- temporario (adicionar código e retorno para home)
+      //se chegar em 5 o jogador vence 
       if (newScore === 5) {
-        Alert.alert("Parabéns!", "Você acertou 5 vezes e venceu o jogo!", [
-          {
-            //reinicia o jogo e zera os valores de vida e pontos
-            text: "Jogar novamente",
-            onPress: () => {
-              setScore(0);
-              setLives(3);
-              generateChallenge();
+        Alert.alert(
+          "Parabéns!",
+          "Você acertou 5 vezes e venceu o jogo!",
+          [
+            {
+              text: "Voltar ao Início",
+              onPress: () => handleHome(),
             },
-          },
-        ]);
+            {
+              text: "Jogar novamente",
+              onPress: () => handleReset(),
+            },
+             {
+              text: "Próximo Jogo",
+              onPress: () => handleProximo(),
+            },
+          ]
+        );
+
         return;
       }
 
