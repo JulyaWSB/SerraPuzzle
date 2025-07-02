@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
-import { View, Text, TouchableOpacity, Image, StatusBar, ImageBackground, Modal, Pressable } from 'react-native';
-import styles from './styles';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import React, { useState } from 'react';
+import { Image, ImageBackground, Modal, Pressable, StatusBar, Text, TouchableOpacity, View } from 'react-native';
 import { RootStackParamList } from '../../routes/StackNavigator';
+import styles from './styles';
 
 const gridCards = [
   {
@@ -41,6 +41,22 @@ export function HomeScreen() {
   const handleFotos = (i : number) => {
     if( i === 0) {
       navigation.navigate("PuzzleFotos");
+    }
+    
+    if( i === 2 ) {
+      navigation.navigate("Bomb Click");
+    }
+
+    if ( i === 3 ) {
+      navigation.navigate("Translate Game");
+    }
+
+    if (i === 4) {
+      navigation.navigate("MoviePuzzle");
+    };
+
+    if ( i === 5 ) {
+      navigation.navigate("Room1");
     }
   }
 

@@ -1,21 +1,21 @@
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { useEffect, useState } from "react";
 import {
+    Image,
     ImageBackground,
     Modal,
     Pressable,
     StatusBar,
+    Text,
     TouchableOpacity,
     View,
-    Text,
 } from "react-native";
-import { styles } from "./BombCliker.styles";
-import { Image } from "react-native";
-import { useCronometro } from "../../context/CronometroContext";
 import { Bomba } from "../../components/PuzzleClickBomb/bomba/Bomba";
 import { useContador } from "../../context/ContadorContext";
-import { useState, useEffect } from "react";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { useCronometro } from "../../context/CronometroContext";
 import { RootStackParamList } from "../../routes/StackNavigator";
-import { useNavigation } from "@react-navigation/native";
+import { styles } from "./BombCliker.styles";
 
 type EstadoDoJogo = 'regras' | 'pronto' | 'contagem' | 'jogando' | 'pausado' | 'foraDeJogo';
 
@@ -287,7 +287,7 @@ export function BombCliker() {
                 hidden
             />
 
-            <ImageBackground source={require("../../assets/FlorestaMágica.png")} style={styles.backgroundImage}>
+            <ImageBackground source={require("../../assets/FunfoPuzzleBomb.png")} style={styles.backgroundImage}>
                 {/* Header com botão de pausa - só aparece durante o jogo */}
                 {estadoDoJogo === "jogando" && (
                     <View style={styles.header}>

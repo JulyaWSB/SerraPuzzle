@@ -1,16 +1,15 @@
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { Cadastro } from '../screens/cadastro';
-import { Login } from '../screens/login';
-import { BombCliker } from '../screens/bombClicker/BombCliker';
-import { TranslateGame } from '../screens/translateGame';
-import { HomeScreen } from '../screens/HomeScreen/home';
+import FinishScreen from '../screens/EscapeRoom/FinishScreen';
 import Room1 from '../screens/EscapeRoom/Room1';
 import Room2 from '../screens/EscapeRoom/Room2';
 import Room3 from '../screens/EscapeRoom/Room3';
-import FinishScreen from '../screens/EscapeRoom/FinishScreen';
-import { BottonTabBomb } from './BottonTabNavigator/BottonTabNavigator';
-import { PuzzleFotos } from '../screens/puzzleFotos';
+import { HomeScreen } from '../screens/HomeScreen/home';
+import { Login } from '../screens/login';
 import { MoviePuzzle } from '../screens/moviePuzzle';
+import { PuzzleFotos } from '../screens/puzzleFotos';
+import { TranslateGame } from '../screens/translateGame';
+import { BottonTabBomb } from './BottonTabNavigator/BottonTabNavigator';
 
 export type RootStackParamList = {
   'Bomb Click': undefined;
@@ -37,32 +36,17 @@ function MyStack() {
         gestureEnabled: true,
       }}
     >
-<<<<<<< HEAD
-      <Stack.Screen name="Room1" component={Room1} />
-      <Stack.Screen name="MoviePuzzle" component={MoviePuzzle} />
-      <Stack.Screen name="Translate Game" component={TranslateGame} />
-=======
->>>>>>> 4caf3f0887c453a9b422ba15d1f05d43de953010
       <Stack.Screen name="Login" component={Login} />
       <Stack.Screen name="Bomb Click" component={BottonTabBomb} />
       <Stack.Screen name="Home" component={HomeScreen} />
-<<<<<<< HEAD
-      <Stack.Screen name="Cadastro" component={Cadastro} />
-      <Stack.Screen name="Room2" component={Room2} />
-      <Stack.Screen name="Room3" component={Room3} />
-      <Stack.Screen name="Finish" component={FinishScreen} />
-      <Stack.Screen name="PuzzleFotos" component={PuzzleFotos} />
-=======
       <Stack.Screen name="MoviePuzzle" component={MoviePuzzle} />
       <Stack.Screen name="Translate Game" component={TranslateGame} />
       <Stack.Screen name="Cadastro" component={Cadastro} />
-      <Stack.Screen name="Bomb Click" component={BottonTabBomb} />
       <Stack.Screen name="PuzzleFotos" component={PuzzleFotos} />
       <Stack.Screen name="Room1" component={Room1} />
       <Stack.Screen name="Room2" component={Room2} />
       <Stack.Screen name="Room3" component={Room3} />
       <Stack.Screen name="Finish" component={FinishScreen} />
->>>>>>> 4caf3f0887c453a9b422ba15d1f05d43de953010
     </Stack.Navigator>
   );
 }

@@ -1,8 +1,8 @@
 import { Ionicons } from '@expo/vector-icons';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import React from 'react';
-import FatoScreen from '../screens/FatoScreen';
-import HistoricoScreen from '../screens/HistoricoScreen';
+import FatoScreen from '../screens/fato/FatoScreen';
+import HistoricoScreen from '../screens/fato/HistoricoScreen';
 import { BottomTabParamList } from './types';
 
 const Tab = createBottomTabNavigator<BottomTabParamList>();

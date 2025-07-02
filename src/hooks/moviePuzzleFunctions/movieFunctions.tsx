@@ -1,8 +1,8 @@
-import { useEffect, useState } from 'react';
 import { useNavigation } from '@react-navigation/native';
-import { getGenres, getPopularMovies } from '../../services/MovieApi/movieApiIndex';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { useEffect, useState } from 'react';
 import { RootStackParamList } from '../../routes/StackNavigator';
+import { getGenres, getPopularMovies } from '../../service/MovieApi/movieApiIndex';
 
 export type Genre = {
   id: number;
