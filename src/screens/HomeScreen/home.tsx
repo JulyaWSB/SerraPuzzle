@@ -101,7 +101,10 @@ export function HomeScreen() {
               <Text style={styles.menuItemText}>Perfil</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.menuItem}>
+            <TouchableOpacity style={styles.menuItem} onPress={() => {
+              setMenuVisible(false);
+              navigation.navigate('Sobre');
+            }}>
               <Text style={styles.menuItemText}>Sobre</Text>
             </TouchableOpacity>
 
