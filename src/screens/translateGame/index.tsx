@@ -143,20 +143,24 @@ export function TranslateGame() {
 
       //se chegar em 5 o jogador vence
       if (newScore === 5) {
-        Alert.alert("Parabéns!", "Você acertou 5 vezes e venceu o jogo!", [
-          {
-            text: "Voltar ao Início",
-            onPress: () => handleHome(),
-          },
-          {
-            text: "Jogar novamente",
-            onPress: () => handleReset(),
-          },
-          {
-            text: "Próximo Jogo",
-            onPress: () => handleProximo(),
-          },
-        ]);
+        Alert.alert(
+          "Você acertou a quantidade necessária!",
+          "O número que você busca é [][][][4][][]!",
+          [
+            {
+              text: "Voltar ao Início",
+              onPress: () => handleHome(),
+            },
+            {
+              text: "Jogar novamente",
+              onPress: () => handleReset(),
+            },
+            {
+              text: "Próximo Jogo",
+              onPress: () => handleProximo(),
+            },
+          ]
+        );
 
         return;
       }
@@ -263,7 +267,7 @@ export function TranslateGame() {
                   style={[
                     styles.optionButton,
                     index === highlightedIndex && {
-                      backgroundColor: "#FF0000",
+                      backgroundColor: "#f78dce",
                     },
                   ]}
                   onPress={() => handleAnswer(langCode)}
