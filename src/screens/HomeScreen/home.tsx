@@ -7,14 +7,29 @@ import { RootStackParamList } from '../../routes/StackNavigator';
 
 const gridCards = [
   {
-    image: require('../../assets/images/livro (1).png'),
-    onPress: (navigation: any) => navigation.navigate('RunasPuzzleFases'),
-  },
-  {
-    image: require('../../assets/images/camera.png'),
+    image: require('../../assets/cauã.png'),
     onPress: undefined,
   },
-  {}, {}, {}, {}, // outros cards p add imagem
+  {
+    image: require('../../assets/karen.png'),
+    onPress: undefined,
+  },
+  {
+    image: require('../../assets/maria.png'),
+    onPress: undefined,
+  }, 
+  {
+    image: require('../../assets/julya.png'),
+    onPress: undefined,
+  }, 
+  {
+    image: require('../../assets/joao pedro.png'),
+    onPress: undefined,
+  }, 
+  {
+    image: require('../../assets/images/livro (1).png'),
+    onPress: undefined,
+  }, // outros cards p add imagem
 ];
 
 type NavigationProps = NativeStackNavigationProp<RootStackParamList>;
@@ -31,7 +46,7 @@ export function HomeScreen() {
 
   return (
     <ImageBackground
-      source={require('../../assets/images/fundo.jpg')}
+      source={require('../../assets/loginBg.png')}
       style={styles.container}
       resizeMode="cover"
     >
@@ -45,7 +60,7 @@ export function HomeScreen() {
       </View>
 
       <Image
-        source={require('../../assets/loginBg.png')}
+        source={require('../../assets/images/título.png')}
         style={styles.tituloImage}
         resizeMode="contain"
       />
