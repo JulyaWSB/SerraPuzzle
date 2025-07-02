@@ -6,6 +6,9 @@ import manhaImg from '../../assets/manha.png';
 import meioDiaImg from '../../assets/meioDia.png';
 import tardeImg from '../../assets/tarde.png';
 import noiteImg from '../../assets/noite.png';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import { RootStackParamList } from '../../routes/StackNavigator';
+import { useNavigation } from '@react-navigation/native';
 
 const imagensPorHorario = [
   { hora: '06:00', imagem: manhaImg },
@@ -13,6 +16,8 @@ const imagensPorHorario = [
   { hora: '18:00', imagem: tardeImg },
   { hora: '00:00', imagem: noiteImg },
 ];
+
+type NavigationProps = NativeStackNavigationProp<RootStackParamList>;
 
 function gerarSequenciaCerta(horaUsuario: string) {
   // Converte a hora do usuário em minutos
@@ -56,6 +61,7 @@ export function PuzzleFotos() {
   const [sequenciaCorreta, setSequenciaCorreta] = useState<string[]>([]);
   const [imagensEmbaralhadas, setImagensEmbaralhadas] = useState<typeof imagensPorHorario>([]);
   const [respostaUsuario, setRespostaUsuario] = useState<string[]>([]);
+  const navigation = useNavigation<NavigationProps>();
 
   useEffect(() => {
     if (horaUsuario) {
@@ -76,9 +82,16 @@ export function PuzzleFotos() {
     if (novaResposta.length === 4) {
       const acertou = novaResposta.every((hora, idx) => hora === sequenciaCorreta[idx]);
       setTimeout(() => {
-        Alert.alert(acertou ? 'Parabéns!' : 'Tente novamente', acertou
-          ? 'Você acertou a sequência!'
-          : 'A ordem estava incorreta. Experimente de novo.');
+        if (acertou) {
+          Alert.alert('Parabéns!', 'Você acertou a sequência!', [
+            {
+              text: 'OK',
+              onPress: () => navigation.navigate("Home"),
+            },
+          ]);
+        } else {
+          Alert.alert('Tente novamente', 'A ordem estava incorreta. Experimente de novo.');
+        }
 
         setRespostaUsuario([]); // reset para tentar de novo
       }, 300);
@@ -107,31 +120,31 @@ export function PuzzleFotos() {
     <View style={styles.container}>
       {/* Modal de input */}
       <Modal visible={modalVisible} transparent animationType="slide">
-  <View style={styles.modalOverlay}>
-    <View style={styles.modalContent}>
-      <Text style={styles.modalTitulo}>Digite a hora que você acordou</Text>
-      <TextInput
-        style={styles.inputHora}
-        placeholder="HH:MM"
-        value={inputHora}
-        onChangeText={(text) => {
-          let formatted = text.replace(/[^\d]/g, '');
-          if (formatted.length > 2) {
-            formatted = formatted.slice(0, 2) + ':' + formatted.slice(2, 4);
-          }
-          if (formatted.length > 5) {
-            formatted = formatted.slice(0, 5);
-          }
-          setInputHora(formatted);
-        }}
-        keyboardType="numeric"
-      />
-      <TouchableOpacity onPress={confirmarHora} style={styles.botaoConfirmar}>
-        <Text style={styles.botaoConfirmarTexto}>Confirmar</Text>
-      </TouchableOpacity>
-    </View>
-  </View>
-</Modal>
+        <View style={styles.modalOverlay}>
+          <View style={styles.modalContent}>
+            <Text style={styles.modalTitulo}>Digite a hora que você acordou</Text>
+            <TextInput
+              style={styles.inputHora}
+              placeholder="HH:MM"
+              value={inputHora}
+              onChangeText={(text) => {
+                let formatted = text.replace(/[^\d]/g, '');
+                if (formatted.length > 2) {
+                  formatted = formatted.slice(0, 2) + ':' + formatted.slice(2, 4);
+                }
+                if (formatted.length > 5) {
+                  formatted = formatted.slice(0, 5);
+                }
+                setInputHora(formatted);
+              }}
+              keyboardType="numeric"
+            />
+            <TouchableOpacity onPress={confirmarHora} style={styles.botaoConfirmar}>
+              <Text style={styles.botaoConfirmarTexto}>Confirmar</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
 
       <Text style={styles.titulo}>Selecione as imagens na ordem do seu dia</Text>
 

@@ -7,7 +7,7 @@ interface DigitoAnimadoProps {
   duracao?: number;
 }
 
-export function DigitoAnimado({ valor, duracao = 40 }: DigitoAnimadoProps) {
+export function DigitoAnimado({ valor, duracao = 20 }: DigitoAnimadoProps) {
   const anim = useRef(new Animated.Value(0)).current;
   const [digitoAtual, setDigitoAtual] = useState(valor);
   const digitoAnterior = useRef(valor);

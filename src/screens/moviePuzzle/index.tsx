@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text, ImageBackground, ActivityIndicator } from 'react-native';
+import { View, Text, ImageBackground, ActivityIndicator, ScrollView } from 'react-native';
 import { useMovieGame } from '../../hooks/moviePuzzleFunctions/movieFunctions';
 import { GenreOptions } from '../../components/GeneroOptions/GenreOptions';
 import styles from './styles';
@@ -31,6 +31,7 @@ export function MoviePuzzle() {
       style={styles.background}
       resizeMode="cover"
     >
+      <ScrollView>
       <View style={styles.overlay}>
         <Text style={styles.title}>{movie.title}</Text>
         <Text style={styles.descricao}>{movie.overview}</Text>
@@ -52,6 +53,7 @@ export function MoviePuzzle() {
         aoFechar={() => setAlerta({ visivel: false, titulo: '', mensagem: '' })}
          acaoPosAlerta={alerta.acaoPosAlerta}
       />
+      </ScrollView> 
     </ImageBackground>
   );
 }
