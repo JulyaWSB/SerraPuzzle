@@ -1,15 +1,32 @@
 import { useFonts } from "expo-font";
-import { Login } from "./src/screens/login";
-import { Cadastro } from "./src/screens/cadastro";
+import { NavigationContainer } from "@react-navigation/native";
+import React from "react";
+import MyStack from "./src/routes/StackNavigator";
+import { CronometroProvider } from "./src/context/CronometroContext";
+import { ContadorProvider } from "./src/context/ContadorContext";
+import { GameProvider } from "./src/screens/EscapeRoom/GameContext";
+import { UsuarioProvider } from "./src/context/UserContext";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
     PressStart2P: require("./src/assets/fonts/PressStart2P-Regular.ttf"),
+    PressStart: require("./src/assets/fonts/PressStart2P-Regular.ttf"),
+    Tinny: require("./src/assets/fonts/Tiny5-Regular.ttf"),
   });
 
-  if (!fontsLoaded) {
-    return null;
-  }
+  if (!fontsLoaded) return null;
 
-  return <Login />;
+  return (
+    <UsuarioProvider>
+      <GameProvider>
+        <NavigationContainer>
+          <CronometroProvider>
+            <ContadorProvider>
+              <MyStack />
+            </ContadorProvider>
+          </CronometroProvider>
+        </NavigationContainer>
+      </GameProvider>
+    </UsuarioProvider>
+  );
 }
