@@ -1,11 +1,23 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, Image, TouchableOpacity, Alert, Modal, TextInput } from 'react-native';
+import {
+  View,
+  Text,
+  Image,
+  TouchableOpacity,
+  Alert,
+  Modal,
+  TextInput,
+  ImageBackground,
+} from 'react-native';
 import styles from './styles';
+import * as Font from 'expo-font';
 
 import manhaImg from '../../assets/manha.png';
 import meioDiaImg from '../../assets/meioDia.png';
 import tardeImg from '../../assets/tarde.png';
 import noiteImg from '../../assets/noite.png';
+import loginBg from '../../assets/loginBg.png'; // ajuste o caminho conforme sua pasta assets
+
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { RootStackParamList } from '../../routes/StackNavigator';
 import { useNavigation } from '@react-navigation/native';
@@ -20,23 +32,18 @@ const imagensPorHorario = [
 type NavigationProps = NativeStackNavigationProp<RootStackParamList>;
 
 function gerarSequenciaCerta(horaUsuario: string) {
-  // Converte a hora do usuário em minutos
   const [horaU, minU] = horaUsuario.split(':').map(Number);
   const minutosUsuario = horaU * 60 + minU;
 
-  // Mapeia cada horário das imagens para minutos
   const horariosEmMinutos = imagensPorHorario.map(item => {
     const [h, m] = item.hora.split(':').map(Number);
     return { ...item, minutos: h * 60 + m };
   });
 
-  // Filtra os horários que são maiores que o horário do usuário
   const proximosHorarios = horariosEmMinutos.filter(item => item.minutos > minutosUsuario);
 
-  // Ordena os horários filtrados
   const ordenados = horariosEmMinutos.sort((a, b) => a.minutos - b.minutos);
 
-  // Se houver horários futuros, começa por eles; senão começa do menor (meia-noite)
   const sequencia = proximosHorarios.length > 0
     ? [...proximosHorarios, ...ordenados.filter(item => item.minutos <= minutosUsuario)]
     : ordenados;
@@ -54,14 +61,25 @@ function embaralhar<T>(array: T[]): T[] {
 }
 
 export function PuzzleFotos() {
-  const [horaUsuario, setHoraUsuario] = useState<string>(''); // agora dinâmico
+  const [horaUsuario, setHoraUsuario] = useState<string>('');
   const [modalVisible, setModalVisible] = useState(true);
   const [inputHora, setInputHora] = useState('');
-
   const [sequenciaCorreta, setSequenciaCorreta] = useState<string[]>([]);
   const [imagensEmbaralhadas, setImagensEmbaralhadas] = useState<typeof imagensPorHorario>([]);
   const [respostaUsuario, setRespostaUsuario] = useState<string[]>([]);
+  const [fontLoaded, setFontLoaded] = useState(false);
+
   const navigation = useNavigation<NavigationProps>();
+
+  useEffect(() => {
+    async function loadFont() {
+      await Font.loadAsync({
+        'Jersey15': require('../../assets/fonts/Jersey15-Regular.ttf'),
+      });
+      setFontLoaded(true);
+    }
+    loadFont();
+  }, []);
 
   useEffect(() => {
     if (horaUsuario) {
@@ -83,17 +101,26 @@ export function PuzzleFotos() {
       const acertou = novaResposta.every((hora, idx) => hora === sequenciaCorreta[idx]);
       setTimeout(() => {
         if (acertou) {
-          Alert.alert('Parabéns!', 'Você acertou a sequência!', [
-            {
-              text: 'OK',
-              onPress: () => navigation.navigate("Home"),
-            },
-          ]);
+          Alert.alert(
+            'Parabéns!',
+            'Você acertou a sequência!',
+            [
+              {
+                text: 'OK',
+                onPress: () => navigation.navigate('Home'),
+              },
+            ],
+            { cancelable: false }
+          );
         } else {
-          Alert.alert('Tente novamente', 'A ordem estava incorreta. Experimente de novo.');
+          Alert.alert(
+            'Tente novamente',
+            'A ordem estava incorreta. Experimente de novo.',
+            [{ text: 'OK', style: 'default' }],
+            { cancelable: false }
+          );
         }
-
-        setRespostaUsuario([]); // reset para tentar de novo
+        setRespostaUsuario([]);
       }, 300);
     }
   };
@@ -112,66 +139,104 @@ export function PuzzleFotos() {
       setHoraUsuario(inputHora);
       setModalVisible(false);
     } else {
-      Alert.alert('Formato inválido', 'Digite a hora no formato 24h (HH:MM). Ex: 06:00 ou 18:30');
+      Alert.alert(
+        'Formato inválido',
+        'Digite a hora no formato 24h (HH:MM). Ex: 06:00 ou 18:30',
+        [{ text: 'OK', style: 'default' }],
+        { cancelable: false }
+      );
     }
   };
 
+  if (!fontLoaded) {
+    return null; // Ou um spinner
+  }
+
   return (
-    <View style={styles.container}>
-      {/* Modal de input */}
-      <Modal visible={modalVisible} transparent animationType="slide">
-        <View style={styles.modalOverlay}>
-          <View style={styles.modalContent}>
-            <Text style={styles.modalTitulo}>Digite a hora que você acordou</Text>
-            <TextInput
-              style={styles.inputHora}
-              placeholder="HH:MM"
-              value={inputHora}
-              onChangeText={(text) => {
-                let formatted = text.replace(/[^\d]/g, '');
-                if (formatted.length > 2) {
-                  formatted = formatted.slice(0, 2) + ':' + formatted.slice(2, 4);
-                }
-                if (formatted.length > 5) {
-                  formatted = formatted.slice(0, 5);
-                }
-                setInputHora(formatted);
-              }}
-              keyboardType="numeric"
-            />
-            <TouchableOpacity onPress={confirmarHora} style={styles.botaoConfirmar}>
-              <Text style={styles.botaoConfirmarTexto}>Confirmar</Text>
+    <ImageBackground source={loginBg} style={styles.bg}>
+      <View style={styles.container}>
+        {/* Modal para entrada da hora */}
+        <Modal visible={modalVisible} transparent animationType="slide">
+          <View style={styles.modalOverlay}>
+            <View style={styles.modalContent}>
+              <Text style={[styles.modalTitulo, { fontFamily: 'Jersey15' }]}>
+                Me conta, que horas foi seu primeiro suspiro do dia?
+              </Text>
+              <TextInput
+                style={[styles.inputHora, { fontFamily: 'Jersey15' }]}
+                placeholder="HH:MM"
+                value={inputHora}
+                onChangeText={text => {
+                  let formatted = text.replace(/[^\d]/g, '');
+                  if (formatted.length > 2) {
+                    formatted = formatted.slice(0, 2) + ':' + formatted.slice(2, 4);
+                  }
+                  if (formatted.length > 5) {
+                    formatted = formatted.slice(0, 5);
+                  }
+                  setInputHora(formatted);
+                }}
+                keyboardType="numeric"
+                maxLength={5}
+              />
+              <TouchableOpacity
+                onPress={confirmarHora}
+                style={styles.botaoConfirmar}
+              >
+                <Text style={[styles.botaoConfirmarTexto, { fontFamily: 'Jersey15' }]}>
+                  Confirmar
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </View>
+        </Modal>
+
+        <Text style={[styles.titulo, { fontFamily: 'Jersey15' }]}>
+          Organize as horas do seu dia nessa sequência secreta.
+        </Text>
+
+        <View style={styles.grid}>
+          {imagensEmbaralhadas.map((item, index) => (
+            <TouchableOpacity
+              key={index}
+              onPress={() => selecionarHorario(item.hora)}
+              disabled={respostaUsuario.includes(item.hora)}
+              style={[
+                styles.card,
+                respostaUsuario.includes(item.hora) && styles.selecionado,
+              ]}
+            >
+              <Image source={item.imagem} style={styles.imagem} />
+              {/* Removido o texto com a hora */}
             </TouchableOpacity>
+          ))}
+        </View>
+
+        <View style={styles.sequenciaContainer}>
+          <Text style={[styles.textoResposta, { fontFamily: 'Jersey15', marginBottom: 8 }]}>
+            Sua sequência:
+          </Text>
+          <View style={{ flexDirection: 'row' }}>
+            {respostaUsuario.map((hora, idx) => {
+              const imagem = imagensPorHorario.find(item => item.hora === hora)?.imagem;
+              if (!imagem) return null;
+              return (
+                <Image
+                  key={idx}
+                  source={imagem}
+                  style={styles.imagemSequencia}
+                />
+              );
+            })}
           </View>
         </View>
-      </Modal>
 
-      <Text style={styles.titulo}>Selecione as imagens na ordem do seu dia</Text>
-
-      <View style={styles.grid}>
-        {imagensEmbaralhadas.map((item, index) => (
-          <TouchableOpacity
-            key={index}
-            onPress={() => selecionarHorario(item.hora)}
-            disabled={respostaUsuario.includes(item.hora)}
-            style={[
-              styles.card,
-              respostaUsuario.includes(item.hora) && styles.selecionado,
-            ]}
-          >
-            <Image source={item.imagem} style={styles.imagem} />
-            <Text style={styles.texto}>{item.hora}</Text>
-          </TouchableOpacity>
-        ))}
+        <TouchableOpacity onPress={limparSequencia} style={styles.botaoLimpar}>
+          <Text style={[styles.botaoLimparTexto, { fontFamily: 'Jersey15' }]}>
+            Limpar sequência
+          </Text>
+        </TouchableOpacity>
       </View>
-
-      <Text style={styles.textoResposta}>
-        Sua sequência: {respostaUsuario.join(' → ')}
-      </Text>
-
-      <TouchableOpacity onPress={limparSequencia} style={styles.botaoLimpar}>
-        <Text style={styles.botaoLimparTexto}>Limpar sequência</Text>
-      </TouchableOpacity>
-    </View>
+    </ImageBackground>
   );
 }

@@ -1,10 +1,14 @@
 import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
-    
+  bg: {
+    flex: 1,
+    width: '100%',
+    height: '100%',
+  },
   container: {
     flex: 1,
-    backgroundColor: '#111',
+    backgroundColor: 'rgba(0,0,0,0.5)',
     alignItems: 'center',
     justifyContent: 'center',
     padding: 20,
@@ -48,57 +52,62 @@ const styles = StyleSheet.create({
     opacity: 0.5,
   },
   botaoLimpar: {
-  marginTop: 12,
-  backgroundColor: '#FF4444',
-  padding: 10,
-  borderRadius: 8,
-  alignItems: 'center',
-},
+    marginTop: 12,
+    backgroundColor: '#FF4444',
+    padding: 10,
+    borderRadius: 8,
+    alignItems: 'center',
+  },
+  botaoLimparTexto: {
+    color: '#FFF',
+  },
+  modalOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  modalContent: {
+    backgroundColor: '#fff',
+    padding: 20,
+    borderRadius: 10,
+    width: '80%',
+  },
+  modalTitulo: {
+    fontSize: 18,
+    marginBottom: 10,
+    textAlign: 'center',
+  },
+  inputHora: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    borderRadius: 8,
+    padding: 10,
+    marginBottom: 10,
+    textAlign: 'center',
+  },
+  botaoConfirmar: {
+    backgroundColor: '#4CAF50',
+    padding: 10,
+    borderRadius: 8,
+    alignItems: 'center',
+  },
+  botaoConfirmarTexto: {
+    color: '#fff',
+  },
 
-botaoLimparTexto: {
-  color: '#FFF',
-  fontWeight: 'bold',
-},
-modalOverlay: {
-  flex: 1,
-  backgroundColor: 'rgba(0,0,0,0.5)',
-  justifyContent: 'center',
-  alignItems: 'center',
-},
-
-modalContent: {
-  backgroundColor: '#fff',
-  padding: 20,
-  borderRadius: 10,
-  width: '80%',
-},
-
-modalTitulo: {
-  fontSize: 18,
-  fontWeight: 'bold',
-  marginBottom: 10,
-  textAlign: 'center',
-},
-
-inputHora: {
-  borderWidth: 1,
-  borderColor: '#ccc',
-  borderRadius: 8,
-  padding: 10,
-  marginBottom: 10,
-  textAlign: 'center',
-},
-
-botaoConfirmar: {
-  backgroundColor: '#4CAF50',
-  padding: 10,
-  borderRadius: 8,
-  alignItems: 'center',
-},
-
-botaoConfirmarTexto: {
-  color: '#fff',
-  fontWeight: 'bold',
-},
+  sequenciaContainer: {
+    marginTop: 20,
+    alignItems: 'flex-start',
+    width: '100%',
+  },
+  imagemSequencia: {
+    width: 60,
+    height: 60,
+    marginRight: 12,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: '#ccc',
+  },
 });
 export default styles;

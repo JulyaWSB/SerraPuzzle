@@ -14,6 +14,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../routes/StackNavigator";
+import { useUsuario } from "../../context/UserContext";
 
 type NavigationProps = NativeStackNavigationProp<RootStackParamList>;
 
@@ -21,6 +22,7 @@ export function Login({ onLogin }: { onLogin?: () => void }) {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const navigation = useNavigation<NavigationProps>();
+  const { setUsuario } = useUsuario();
 
   async function handleLogin() {
     if (!email || !senha) {
@@ -32,17 +34,26 @@ export function Login({ onLogin }: { onLogin?: () => void }) {
       const dados = {
         email: email,
         password: senha,
-      }
+      };
 
-      console.log("Chegou aqui!")
+      console.log("Tentando login...");
       const response = await apiLogin.post("/auth/signin", dados);
+
+      console.log("Resposta da API:", response.data);
 
       await AsyncStorage.setItem("token", response.data?.content?.token);
       await AsyncStorage.setItem("nome", response.data?.content?.user?.name);
 
+      // Salva usuário no contexto
+      const userData = {
+        id: response.data?.content?.user?.id,
+        nome: response.data?.content?.user?.name,
+        email: response.data?.content?.user?.email,
+      };
+      setUsuario(userData);
+
       Alert.alert("Sucesso", "Bem-vindo!");
 
-      console.log("Token:", response.data.token);
       navigation.navigate("Home");
 
     } catch (error: any) {
@@ -70,7 +81,6 @@ export function Login({ onLogin }: { onLogin?: () => void }) {
           secureTextEntry
         />
         <TouchableOpacity onPress={handleLogin}>
-
           <Image
             source={require("../../assets/botao.png")}
             style={styles.startButton}
@@ -80,10 +90,7 @@ export function Login({ onLogin }: { onLogin?: () => void }) {
       <View style={styles.temCadastro}>
         <Text style={styles.textoCadastro}>Não possuí cadastro? </Text>
         <TouchableOpacity onPress={() => navigation.navigate("Cadastro")}>
-          <Text style={styles.textoCadastro}>
-            {" "}
-            Cadastre-se aqui!
-          </Text>
+          <Text style={styles.textoCadastro}> Cadastre-se aqui!</Text>
         </TouchableOpacity>
       </View>
     </ImageBackground>
