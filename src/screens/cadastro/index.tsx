@@ -13,6 +13,7 @@ import { apiLogin } from "../../service/loginApi/loginConnection";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../routes/StackNavigator";
 import { useNavigation } from "@react-navigation/native";
+import { PasswordInput } from "../../components/passwordInput";
 
 type NavigationProps = NativeStackNavigationProp<RootStackParamList>;
 
@@ -101,17 +102,15 @@ export function Cadastro() {
           value={emailCadastro}
           onChangeText={setEmailCadastro}
         />
-        <Input
+        <PasswordInput
           label="Senha"
           value={senhaCadastro}
           onChangeText={setSenhaCadastro}
-          secureTextEntry
         />
-        <Input
+        <PasswordInput
           label="Confirmar Senha"
           value={senhaCadastroConfirm}
           onChangeText={setSenhaCadastroConfirm}
-          secureTextEntry
         />
         <TouchableOpacity onPress={handleCadastro}>
           <Image

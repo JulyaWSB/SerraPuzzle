@@ -141,26 +141,22 @@ export function TranslateGame() {
       const newScore = score + 1; //se estiver certo vc avança mais 1 na estrela
       setScore(newScore);
 
-      //se chegar em 5 o jogador vence 
+      //se chegar em 5 o jogador vence
       if (newScore === 5) {
-        Alert.alert(
-          "Parabéns!",
-          "Você acertou 5 vezes e venceu o jogo!",
-          [
-            {
-              text: "Voltar ao Início",
-              onPress: () => handleHome(),
-            },
-            {
-              text: "Jogar novamente",
-              onPress: () => handleReset(),
-            },
-             {
-              text: "Próximo Jogo",
-              onPress: () => handleProximo(),
-            },
-          ]
-        );
+        Alert.alert("Parabéns!", "Você acertou 5 vezes e venceu o jogo!", [
+          {
+            text: "Voltar ao Início",
+            onPress: () => handleHome(),
+          },
+          {
+            text: "Jogar novamente",
+            onPress: () => handleReset(),
+          },
+          {
+            text: "Próximo Jogo",
+            onPress: () => handleProximo(),
+          },
+        ]);
 
         return;
       }
