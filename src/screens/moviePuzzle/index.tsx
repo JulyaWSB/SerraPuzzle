@@ -1,9 +1,9 @@
 import React from 'react';
-import { View, Text, ImageBackground, ActivityIndicator, ScrollView } from 'react-native';
-import { useMovieGame } from '../../hooks/moviePuzzleFunctions/movieFunctions';
-import { GenreOptions } from '../../components/GeneroOptions/GenreOptions';
-import styles from './styles';
+import { ActivityIndicator, ImageBackground, ScrollView, Text, View } from 'react-native';
 import { AlertaPixelArt } from '../../components/alertMovie/alertaMovie';
+import { GenreOptions } from '../../components/GeneroOptions/GenreOptions';
+import { useMovieGame } from '../../hooks/moviePuzzleFunctions/movieFunctions';
+import styles from './styles';
 
 export function MoviePuzzle() {
   const {
@@ -31,7 +31,7 @@ export function MoviePuzzle() {
       style={styles.background}
       resizeMode="cover"
     >
-      <ScrollView>
+      <ScrollView style={styles.scroll}>
       <View style={styles.overlay}>
         <Text style={styles.title}>{movie.title}</Text>
         <Text style={styles.descricao}>{movie.overview}</Text>

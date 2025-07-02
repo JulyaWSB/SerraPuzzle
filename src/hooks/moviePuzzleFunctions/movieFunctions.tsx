@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useNavigation } from '@react-navigation/native';
 import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import { useEffect, useState } from 'react';
@@ -74,72 +75,76 @@ export function useMovieGame() {
     return opcoes;
   };
 
- const [alerta, setAlerta] = useState<{
-  visivel: boolean;
-  titulo: string;
-  mensagem: string;
-  acaoPosAlerta?: () => void;  // função opcional
-}>({
-  visivel: false,
-  titulo: '',
-  mensagem: ''
-});
+  const [alerta, setAlerta] = useState<{
+    visivel: boolean;
+    titulo: string;
+    mensagem: string;
+    acaoPosAlerta?: () => void;
+  }>({
+    visivel: false,
+    titulo: '',
+    mensagem: ''
+  });
 
   const verificarGenero = (generoEscolhidoId: number) => {
-  if (!movie) return;
+    if (!movie) return;
 
-  if (movie.genre_ids.includes(generoEscolhidoId)) {
-    const novosAcertos = acertos + 1;
-    setAcertos(novosAcertos);
+    if (movie.genre_ids.includes(generoEscolhidoId)) {
+      const novosAcertos = acertos + 1;
+      setAcertos(novosAcertos);
 
-    if (novosAcertos >= 3) {
-      setAlerta({
-        visivel: true,
-        titulo: '🎇 Parabéns! 🎇',
-        mensagem: 'Você acertou a quantidade necessária! O número que você busca é [][][][][8][]!',
-        acaoPosAlerta: () => {
-          setAcertos(0);
-          setVidas(3);
-          sortearFilme();
-          navigation.navigate("Room1");
-        }
-      });
+      if (novosAcertos >= 3) {
+        AsyncStorage.setItem("nivel", "5");
+        setAlerta({
+          visivel: true,
+          titulo: '🎇 Parabéns! 🎇',
+          mensagem: 'Você acertou a quantidade necessária! O número que você busca é [][][][][8][]!',
+          acaoPosAlerta: () => {
+            setAcertos(0);
+            setVidas(3);
+            sortearFilme();
+            navigation.navigate("Room1");
+          }
+        });
+      } else {
+        setAlerta({
+          visivel: true,
+          titulo: '🎉 Acertou! 🎉',
+          mensagem: 'Você acertou o gênero do filme!',
+          acaoPosAlerta: () => {
+            sortearFilme();
+          }
+        });
+      }
+
     } else {
-      setAlerta({
-        visivel: true,
-        titulo: '🎉 Acertou! 🎉',
-        mensagem: 'Você acertou o gênero do filme!',
-        acaoPosAlerta: () => {
-          sortearFilme();
-        }
-      });
-    }
+      const novasVidas = vidas - 1;
+      setVidas(novasVidas);
 
-  } else {
-    const novasVidas = vidas - 1;
-    setVidas(novasVidas);
-
-    if (novasVidas <= 0) {
-      setAlerta({
-        visivel: true,
-        titulo: '😢 Que pena! 😢',
-        mensagem: 'Você falhou com o Nikola!',
-        acaoPosAlerta: () => {
-          setAcertos(0);
-          setVidas(3);
-          sortearFilme();
+      if (novasVidas <= 0) {
+        AsyncStorage.setItem("nivel", "0");
+        setAlerta({
+          visivel: true,
+          titulo: '😢 Que pena! 😢',
+          mensagem: 'Você falhou com o Nikola!',
+          acaoPosAlerta: () => {
+            setAcertos(0);
+            setVidas(3);
+            sortearFilme();
+            navigation.navigate("Home");
+          }
         }
-      });
-    } else {
-      setAlerta({
-        visivel: true,
-        titulo: '❌ Errou! ❌',
-        mensagem: `Você errou! Vidas restantes: ${novasVidas}`,
-        acaoPosAlerta: undefined  // sem ação extra após fechar
-      });
+        );
+      } else {
+        setAlerta({
+          visivel: true,
+          titulo: '❌ Errou! ❌',
+          mensagem: `Você errou! Vidas restantes: ${novasVidas}`,
+          acaoPosAlerta: undefined  // sem ação extra após fechar
+        });
+      }
     }
-  }
-};
+  };
 
   return {
     movie,

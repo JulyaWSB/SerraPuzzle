@@ -1,14 +1,15 @@
-import React, { useState, useContext } from 'react';
-import { ImageBackground, View, Text, TextInput, Button, Alert } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import React, { useContext, useState } from 'react';
+import { Alert, Button, ImageBackground, Text, TextInput, View } from 'react-native';
+import { RootStackParamList } from '../../routes/StackNavigator';
 import { GameContext } from './GameContext';
 import styles from './stylesRoom1';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
-import { RootStackParamList } from '../../routes/StackNavigator';
-import { useNavigation } from '@react-navigation/native';
 
 // Tipagem para navegação entre salas
 type Room1ScreenProps = {
-  navigation: any; 
+  navigation: any;
 };
 
 type NavigationProps = NativeStackNavigationProp<RootStackParamList>;
@@ -21,17 +22,31 @@ const Room1: React.FC<Room1ScreenProps> = () => {
   //para atualizar progresso e inventário
   const { updateProgress } = useContext(GameContext)!;
 
+  const [vida, setVida] = useState(3);
+
   //chamada ao pressionar o botão de confirmação
   const checkAnswer = () => {
-    // verifica se a resposta está correta 
     if (answer.toLowerCase().trim() === 'temperatura') {
-      // atualiza progresso: vai para a sala 2 e add a chave p/ inventário
       updateProgress(2, 'Chave Misteriosa');
-      // navega para a próxima sala
       navigation.navigate('Room2');
     } else {
-      // mostra alerta de erro
-      Alert.alert('Resposta errada! Tente novamente.');
+      if (vida > 1) {
+        setVida(prev => prev - 1); 
+        Alert.alert(`Resposta errada! Tente novamente. Você tem mais ${vida} vidas.`);
+      } else {
+        setVida(0);
+        AsyncStorage.setItem("nivel", "0");
+        Alert.alert(
+          'Você falhou com o Nikola!',
+          '',
+          [
+            {
+              text: 'Reiniciar Jogo',
+              onPress: () => navigation.navigate('Home')
+            }
+          ]
+        );
+      }
     }
   };
 

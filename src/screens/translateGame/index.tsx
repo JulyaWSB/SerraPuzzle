@@ -1,21 +1,22 @@
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React, { useEffect, useState } from "react";
 import {
-  View,
+  ActivityIndicator,
+  Alert,
+  Image,
+  ImageBackground,
   Text,
   TouchableOpacity,
-  Alert,
-  ActivityIndicator,
-  ImageBackground,
-  Image,
+  View,
 } from "react-native";
-import styles from "./styles";
-import { translateWord } from "../../service/translateApi/translateGameService";
-import { languages } from "../../utils/languages";
 import heartFull from "../../assets/heartGame.png";
 import heartEmpty from "../../assets/heartGameWhite.png";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../routes/StackNavigator";
-import { useNavigation } from "@react-navigation/native";
+import { translateWord } from "../../service/translateApi/translateGameService";
+import { languages } from "../../utils/languages";
+import styles from "./styles";
 
 //array com palavras em português
 const palavras = [
@@ -141,26 +142,23 @@ export function TranslateGame() {
       const newScore = score + 1; //se estiver certo vc avança mais 1 na estrela
       setScore(newScore);
 
-      //se chegar em 5 o jogador vence 
+      //se chegar em 5 o jogador vence
       if (newScore === 5) {
-        Alert.alert(
-          "Parabéns!",
-          "Você acertou 5 vezes e venceu o jogo!",
-          [
-            {
-              text: "Voltar ao Início",
-              onPress: () => handleHome(),
-            },
-            {
-              text: "Jogar novamente",
-              onPress: () => handleReset(),
-            },
-             {
-              text: "Próximo Jogo",
-              onPress: () => handleProximo(),
-            },
-          ]
-        );
+        AsyncStorage.setItem("nivel", "3");
+        Alert.alert("Parabéns!", "Você acertou 5 vezes e venceu o jogo!", [
+          {
+            text: "Voltar ao Início",
+            onPress: () => handleHome(),
+          },
+          {
+            text: "Jogar novamente",
+            onPress: () => handleReset(),
+          },
+          {
+            text: "Próximo Jogo",
+            onPress: () => handleProximo(),
+          },
+        ]);
 
         return;
       }
@@ -175,17 +173,19 @@ export function TranslateGame() {
 
       //se acabou as vidas o jogador perde
       if (newLives === 0) {
+        AsyncStorage.setItem("nivel", "0");
         Alert.alert(
           "Você falhou com o Nikola!",
           `Você errou 3 vezes!\nA tradução correta de "${original}" era em ${languageMap[correctLang]}.`,
           [
             {
               //reinicia o jogo e zera os valores de vida e pontos
-              text: "Tentar novamente",
+              text: "Jogar novamente",
               onPress: () => {
                 setScore(0);
                 setLives(3);
                 generateChallenge();
+                navigation.navigate("Home");
               },
             },
           ]

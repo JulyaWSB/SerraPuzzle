@@ -92,7 +92,7 @@ export const styles = StyleSheet.create({
 
   modalContainerPause: {
     width: 350,
-    height: 200,
+    height: 450,
     justifyContent: "center",
     alignItems: "center",
     bottom: 20
@@ -194,10 +194,23 @@ export const styles = StyleSheet.create({
 
   secondaryButton: {
     backgroundColor:"rgba(5, 83, 240, 0.72)",
-    paddingVertical: 2,
+    paddingVertical: 1,
     paddingHorizontal: 47,
     borderWidth: 4,
     borderColor: "rgba(45, 38, 253, 0.57)",
+    borderStyle: "solid",
+    shadowColor: "#000",
+    shadowOffset: { width: 4, height: 4 },
+    shadowRadius: 5,
+    elevation: 8,
+  },
+
+  ButtonRegras: {
+    backgroundColor:"rgba(240, 201, 5, 0.72)",
+    paddingVertical: 2,
+    paddingHorizontal: 75,
+    borderWidth: 4,
+    borderColor: "rgba(253, 235, 38, 0.57)",
     borderStyle: "solid",
     shadowColor: "#000",
     shadowOffset: { width: 4, height: 4 },

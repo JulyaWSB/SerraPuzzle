@@ -1,14 +1,14 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 import React, { useEffect, useState } from 'react';
-import { View, Text, Image, TouchableOpacity, Alert, Modal, TextInput } from 'react-native';
-import styles from './styles';
-
+import { Alert, Image, Modal, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import manhaImg from '../../assets/manha.png';
 import meioDiaImg from '../../assets/meioDia.png';
-import tardeImg from '../../assets/tarde.png';
 import noiteImg from '../../assets/noite.png';
-import { NativeStackNavigationProp } from '@react-navigation/native-stack';
+import tardeImg from '../../assets/tarde.png';
 import { RootStackParamList } from '../../routes/StackNavigator';
-import { useNavigation } from '@react-navigation/native';
+import styles from './styles';
 
 const imagensPorHorario = [
   { hora: '06:00', imagem: manhaImg },
@@ -83,6 +83,7 @@ export function PuzzleFotos() {
       const acertou = novaResposta.every((hora, idx) => hora === sequenciaCorreta[idx]);
       setTimeout(() => {
         if (acertou) {
+          AsyncStorage.setItem("nivel", "2")
           Alert.alert('Parabéns!', 'Você acertou a sequência!', [
             {
               text: 'OK',
@@ -90,6 +91,7 @@ export function PuzzleFotos() {
             },
           ]);
         } else {
+          AsyncStorage.setItem("nivel", "0")
           Alert.alert('Tente novamente', 'A ordem estava incorreta. Experimente de novo.');
         }
 

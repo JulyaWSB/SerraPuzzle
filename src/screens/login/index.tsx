@@ -14,6 +14,8 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RootStackParamList } from "../../routes/StackNavigator";
+import Icon from "react-native-vector-icons/Feather";
+import { PasswordInput } from "../../components/passwordInput";
 
 type NavigationProps = NativeStackNavigationProp<RootStackParamList>;
 
@@ -21,6 +23,7 @@ export function Login({ onLogin }: { onLogin?: () => void }) {
   const [email, setEmail] = useState("");
   const [senha, setSenha] = useState("");
   const navigation = useNavigation<NavigationProps>();
+  const [mostrarSenha, setMostrarSenha] = useState(false);
 
   async function handleLogin() {
     if (!email || !senha) {
@@ -32,9 +35,9 @@ export function Login({ onLogin }: { onLogin?: () => void }) {
       const dados = {
         email: email,
         password: senha,
-      }
+      };
 
-      console.log("Chegou aqui!")
+      console.log("Chegou aqui!");
       const response = await apiLogin.post("/auth/signin", dados);
 
       await AsyncStorage.setItem("token", response.data?.content?.token);
@@ -44,7 +47,6 @@ export function Login({ onLogin }: { onLogin?: () => void }) {
 
       console.log("Token:", response.data.token);
       navigation.navigate("Home");
-
     } catch (error: any) {
       if (error.response?.status === 404) {
         Alert.alert("Erro", "Credenciais inválidas.");
@@ -63,14 +65,9 @@ export function Login({ onLogin }: { onLogin?: () => void }) {
       <View style={styles.container}>
         <Text style={styles.title}>Log In</Text>
         <Input label="E-mail" value={email} onChangeText={setEmail} />
-        <Input
-          label="Senha"
-          value={senha}
-          onChangeText={setSenha}
-          secureTextEntry
-        />
-        <TouchableOpacity onPress={handleLogin}>
+        <PasswordInput label="Senha" value={senha} onChangeText={setSenha} />
 
+        <TouchableOpacity onPress={handleLogin}>
           <Image
             source={require("../../assets/botao.png")}
             style={styles.startButton}
@@ -80,10 +77,7 @@ export function Login({ onLogin }: { onLogin?: () => void }) {
       <View style={styles.temCadastro}>
         <Text style={styles.textoCadastro}>Não possuí cadastro? </Text>
         <TouchableOpacity onPress={() => navigation.navigate("Cadastro")}>
-          <Text style={styles.textoCadastro}>
-            {" "}
-            Cadastre-se aqui!
-          </Text>
+          <Text style={styles.textoCadastro}> Cadastre-se aqui!</Text>
         </TouchableOpacity>
       </View>
     </ImageBackground>

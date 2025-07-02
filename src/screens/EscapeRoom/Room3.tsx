@@ -1,7 +1,8 @@
-import React, { useState, useContext } from 'react';
-import { ImageBackground, View, Text, TextInput, Button, Alert } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, { useContext, useState } from 'react';
+import { Alert, Button, ImageBackground, Text, TextInput, View } from 'react-native';
 import { GameContext } from './GameContext';
-import styles from './stylesRoom1'; 
+import styles from './stylesRoom1';
 
 // Tipagem para navegação
 type Room3ScreenProps = {
@@ -11,6 +12,7 @@ type Room3ScreenProps = {
 const Room3: React.FC<Room3ScreenProps> = ({ navigation }) => {
   const [answer, setAnswer] = useState('');
   const { updateProgress } = useContext(GameContext)!;
+  const [vida, setVida] = useState(3);
 
   // chamada ao pressionar o botão de confirmação
   const checkAnswer = () => {
@@ -19,7 +21,23 @@ const Room3: React.FC<Room3ScreenProps> = ({ navigation }) => {
       // Navega para a tela de finalização
       navigation.replace('Finish');
     } else {
-      Alert.alert('Resposta errada! Tente novamente.');
+      if (vida > 1) {
+        setVida(prev => prev - 1);
+        Alert.alert(`Resposta errada! Tente novamente. Você tem mais ${vida} vidas.`);
+      } else {
+        setVida(0);
+        AsyncStorage.setItem("nivel", "0");
+        Alert.alert(
+          'Você falhou com o Nikola!',
+          '',
+          [
+            {
+              text: 'Reiniciar Jogo',
+              onPress: () => navigation.navigate('Home')
+            }
+          ]
+        );
+      }
     }
   };
 

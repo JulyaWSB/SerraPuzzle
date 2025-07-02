@@ -1,5 +1,6 @@
-import React, { useState, useContext } from 'react';
-import { View, Text, TextInput, Button, Alert, ImageBackground } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import React, { useContext, useState } from 'react';
+import { Alert, Button, ImageBackground, Text, TextInput, View } from 'react-native';
 import { GameContext } from './GameContext';
 import styles from './stylesRoom2';
 
@@ -16,20 +17,35 @@ const Room2: React.FC<Room2ScreenProps> = ({ navigation }) => {
   // verifica se o usuário já possui a chave
   const hasKey = inventory.includes('Chave Misteriosa');
 
+  const [vida, setVida] = useState(3);
+
   // função chamada ao tentar abrir o cofre
   const checkCode = () => {
     if (code === '1984') {
       if (hasKey) {
-        // se tiver a chave, avança e adiciona item ao inventário
         updateProgress(3, 'Livro Cifrado');
-        navigation.navigate('Room3'); // Navega para a Room3
+        navigation.navigate('Room3');
       } else {
-        // se não tiver a chave, alerta para voltar à sala 1
         Alert.alert('Você precisa da chave!', 'Volte para a Sala 1 e resolva o enigma.');
       }
     } else {
-      // sódigo incorreto, mostra dica
-      Alert.alert('Código incorreto!', 'Dica: O ano do livro distópico mais famoso.');
+      if (vida > 1) {
+        setVida(prev => prev - 1);
+        Alert.alert(`'Código incorreto!', 'Dica: O ano do livro distópico mais famoso. Você tem mais ${vida - 1} vidas.`);
+      } else {
+        setVida(0);
+        AsyncStorage.setItem("nivel", "0");
+        Alert.alert(
+          'Você falhou com o Nikola!',
+          '',
+          [
+            {
+              text: 'Reiniciar Jogo',
+              onPress: () => navigation.navigate('Home')
+            }
+          ]
+        );
+      }
     }
   };
 
